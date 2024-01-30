@@ -1,4 +1,4 @@
-package org.mercurialftc.statemachineftc;
+package org.gentrifiedApps.statemachineftc;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 

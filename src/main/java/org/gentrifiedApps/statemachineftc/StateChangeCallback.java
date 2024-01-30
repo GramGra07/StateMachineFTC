@@ -1,4 +1,4 @@
-package org.mercurialftc.statemachineftc;
+package org.gentrifiedApps.statemachineftc;
 
 @FunctionalInterface
 public interface StateChangeCallback {
