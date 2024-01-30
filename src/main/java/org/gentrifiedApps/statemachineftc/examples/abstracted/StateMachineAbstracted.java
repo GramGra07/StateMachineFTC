@@ -1,8 +1,10 @@
-package org.gentrifiedApps.statemachineftc;
+package org.gentrifiedApps.statemachineftc.examples.abstracted;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.gentrifiedApps.statemachineftc.StateMachine;
 
 
 @Autonomous

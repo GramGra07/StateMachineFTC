@@ -81,9 +81,24 @@ repositories {
 }
 ```
 
+Inside your ```build.common.gradle``` file, add the following to your packaging options:
+
+```
+packagingOptions {
+    exclude 'META-INF/LICENSE-notice.md'
+    exclude 'META-INF/LICENSE.md'
+}
+```
+
 ## How to use it
 
 ### Builder Function
+
+There are a total of five builders you can choose from.
+
+It is required to have both a state and transition builder for each state and the first state **must** have a onEnter command.
+
+
 
 ```
 StateMachine.Builder<States> builder = new StateMachine.Builder<>();
@@ -136,6 +151,18 @@ This is a lambda function that is used to pass a function into the builder that 
 This is a supplier for the transition or while state that will return a boolean value. You can make it be ```()-> true``` or ```()-> false``` or you can make it be ```()-> opModeIsActive()```.
 
 ### Other useful functions
+
+```machineName.mainLoop(this)```
+
+This function contains the main loop of the StateMachine. It takes in your current opMode as a parameter and will run the while loop for you automatically. ```while(machine.mainLoop(this)){```.
+
+```machineName.start()```
+
+This function starts the StateMachine and will go immediately before the while loop.
+
+```machineName.update()```
+
+This function tells the StateMachine to update the current state and check if it should switch states and what it should currently be doing.
 
 ### Requirements
 

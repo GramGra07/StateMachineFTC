@@ -1,4 +1,6 @@
-package org.gentrifiedApps.statemachineftc;
+package org.gentrifiedApps.statemachineftc.examples.abstracted;
+
+import org.gentrifiedApps.statemachineftc.StateMachine;
 
 public class abstractedSM {
 
