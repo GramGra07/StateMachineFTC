@@ -98,18 +98,18 @@ There are a total of five builders you can choose from.
 
 It is required to have both a state and transition builder for each state and the first state **must** have a onEnter command.
 
-
+#### Inside the <> brackets, you **must** put the enum you created earlier.
 
 ```
-StateMachine.Builder<States> builder = new StateMachine.Builder<>();
-builder.state(States.STATE1)
-        .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-        .transition(States.STATE1, () -> true)
-        .state(States.STATE2)
-        .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-        .transition(States.STATE2, () -> true)
-        .stopRunning(States.STOP);
-StateMachine<States> stateMachine = builder.build();
+StateMachine.Builder<name> builder = new StateMachine.Builder<>();
+builder.state(name.STATE1)
+        .onEnter(name.STATE1, () -> System.out.println("Entering STATE1"))
+        .name(name.STATE1, () -> true)
+        .state(name.STATE2)
+        .onEnter(name.STATE2, () -> System.out.println("Entering STATE2"))
+        .transition(name.STATE2, () -> true)
+        .stopRunning(name.STOP);
+StateMachine<name> stateMachine = builder.build();
 ```
 
 The builder function builds the StateMachine. It is a function that returns a built StateMachine with all of the states and transitions you have added to it.
