@@ -164,10 +164,8 @@ This function starts the StateMachine and will go immediately before the while l
 
 This function tells the StateMachine to update the current state and check if it should switch states and what it should currently be doing.
 
-### Requirements
-
-```.stopRunning()```
-
 ## Examples
 
+
 ## Abstracting
+
