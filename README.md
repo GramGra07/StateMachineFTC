@@ -53,8 +53,21 @@ It will run through step by step, waiting for a condition to be true to move on 
 
 ### Adding it to your project
 
-git submodule add https://github.com/GramGra07/StateMachineFTC/
-/java
+In your ```build.gradle``` file in the TeamCode module, add the following line to the dependencies:
+
+```
+dependencies {
+    implementation 'com.github.GramGra07:StateMachineFTC:1.0.1'
+}
+```
+
+In your ```build.dependencies.gradle``` file, add the following to the repositories:
+
+```
+repositories {
+    maven {url = 'https://jitpack.io'}
+}
+```
 
 ### Updating
 
