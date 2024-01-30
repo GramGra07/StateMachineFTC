@@ -4,10 +4,14 @@ Built for FTC robotics and Java programming for ease of autonomous programming.
 
 ## Introduction
 
+TeleOp mode is pretty straightforward for new teams, you use the gamepad to control the robot.  Autonomous is not as easy to program but it isn't all the much different than TeleOp, you just have to pre-program what movements you want the robot to perform. StateMachine can help with this and make it easier to understand.
+
 ### Enums
 
 Enums are a way of creating a list of constants that can be used in a program.
 For example you could create an Enum of fruits and have it contain apples, oranges, and bananas.
+
+Enums are a variable that is defined by the user, and has a list of constants the user defines.
 
 In this implementation, we use Enums commonly named states, or autonomousStates.
 
@@ -21,6 +25,10 @@ enum States {
     STOP,
 }
 ```
+
+In the case of autonomous, states could be things like drive forward, turn left, turn right, raise arm, etc.
+
+These enums provide an advantage because they are easy to read and understand in comparison to just telling the robot exactly what to do when. It can also wait for specific input from the robot, which might be harder to implement with just hard coding autonomous.
 
 Later we will use these states to control the robot during autonomous.
 
@@ -36,12 +44,16 @@ order.
 It allows it to switch states and way things are moving during autonomous based on the conditions of
 the robot.
 
+Specifically for FTC, things like PIDF control and other motor controls require the loop to constantly be running. FTC sample code almost never uses the while(opModeIsActive()) loop, but instead just programs it linearly. For younger teams as well, this is a way to make it easier to understand and program the autonomous architecture.
+
 ### Why use a State Machine?
 
 The architecture of the state machine allows for an easier and simplified way to move the robot
 through autonomous using the conditions of the robot to control it.
 
 Using a state machine allows for a more efficient way of programming autonomous.
+
+FTC Sample code programs the autonomous very linearly and one by one. As soon as you need other motor control or PIDF or a reason to use the while(opModeIsActive()) loop, it becomes much more difficult to program because it is linear. The StateMachine helps solve this problem and makes it easier to program.
 
 ### How does it work?
 
@@ -69,10 +81,6 @@ repositories {
 }
 ```
 
-### Updating
-
-git submodule update --remote
-
 ## How to use it
 
 ### Builder Function
@@ -87,30 +95,31 @@ builder.state(States.STATE1)
         .transition(States.STATE2, () -> true)
         .stopRunning(States.STOP);
 StateMachine<States> stateMachine = builder.build();
-}
 ```
+
+The builder function builds the StateMachine. It is a function that returns a built StateMachine with all of the states and transitions you have added to it.
 
 ```.state()```
 
-This builder is used to add a state to the state machine.
+This method is used to add a state to the state machine.
 
-```.onEnter()```
+```.onEnter(state, ()->{ function to run })```
 
 This builder is used to add a function that will run when the state is entered.
 
-```.whileState()```
+```.whileState(state, ()-> condition (when true, will break loop) , ()-> function to run)```
 
-This builder is used to add a function that will run while the supplied condition is active.
+This builder is used to add a function that will run while the supplied condition is active. When the condition becomes true, it will move on.
 
-```.onExit()```
+```.onExit(state, ()->{ function to run })```
 
 This builder is used to add a function that will run when the state is exited.
 
-```.transition()```
+```.transition(state, ()-> condition)```
 
-This builder is used to add a condition that will be checked to see if the state should be switched.
+This builder is used to add a condition that will be checked to see if the state should be switched. If the condition is true, it will move on.
 
-```.stopRunning()```
+```.stopRunning(state)```
 
 This builder is required to add a state that will stop the state machine from running.
 
@@ -120,7 +129,7 @@ This builder is required to build the state machine.
 
 ```() -> {}```
 
-This is a lambda function that is used to pass a function into the builder that will be run when it is called.
+This is a lambda function that is used to pass a function into the builder that will be run when it is called. A lambda function is a function that the user will pass in, and then it will be used and called by the state machine while running.
 
 ```() -> ```
 
