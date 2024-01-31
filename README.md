@@ -2,6 +2,8 @@
 
 Built for FTC robotics and Java programming for ease of autonomous programming.
 
+[![](https://jitpack.io/v/GramGra07/StateMachineFTC.svg)](https://jitpack.io/#GramGra07/StateMachineFTC)
+
 ## Introduction
 
 TeleOp mode is pretty straightforward for new teams, you use the gamepad to control the robot.  Autonomous is not as easy to program but it isn't all the much different than TeleOp, you just have to pre-program what movements you want the robot to perform. StateMachine can help with this and make it easier to understand.
@@ -9,7 +11,7 @@ TeleOp mode is pretty straightforward for new teams, you use the gamepad to cont
 ### Enums
 
 Enums are a way of creating a list of constants that can be used in a program.
-For example you could create an Enum of fruits and have it contain apples, oranges, and bananas.
+For example you could create an Enum of fruits and have it contain apples, oranges, and bananas. Another example could be types of cars, you could have a list of cars that are sedans, trucks, and SUVs.
 
 Enums are a variable that is defined by the user, and has a list of constants the user defines.
 
@@ -36,13 +38,10 @@ Later we will use these states to control the robot during autonomous.
 
 More information on State Machines can be found [here](https://state-factory.gitbook.io/state-factory/essential-usage).
 
-A state machine is a way of linearly programming an autonomous architecture.
-
-It is a way of programming that allows you to program a sequence of events that will happen in
-order.
+A state machine is a way of linearly programming an autonomous architecture. This meaning that it will go step by step through the code and run each function in order. Autonomous architecture refers to the way you structure and build your autonomous.
 
 It allows it to switch states and way things are moving during autonomous based on the conditions of
-the robot.
+the robot. This is useful because the robot will only do the "next step" when it is ready to do so based on a condition you provide to it.
 
 Specifically for FTC, things like PIDF control and other motor controls require the loop to constantly be running. FTC sample code almost never uses the while(opModeIsActive()) loop, but instead just programs it linearly. For younger teams as well, this is a way to make it easier to understand and program the autonomous architecture.
 
