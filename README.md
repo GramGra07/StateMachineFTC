@@ -45,6 +45,8 @@ the robot. This is useful because the robot will only do the "next step" when it
 
 Specifically for FTC, things like PIDF control and other motor controls require the loop to constantly be running. FTC sample code almost never uses the while(opModeIsActive()) loop, but instead just programs it linearly. For younger teams as well, this is a way to make it easier to understand and program the autonomous architecture.
 
+FTC's basic autonomous using encoder drive uses just linear code and while loops waiting for the motors to complete running to their positions before starting the next step. The State Machine allows us to do this directly in the code, without using while loops much or at all.
+
 ### Why use a State Machine?
 
 The architecture of the state machine allows for an easier and simplified way to move the robot
@@ -115,23 +117,23 @@ The builder function builds the StateMachine. It is a function that returns a bu
 
 ```.state()```
 
-This method is used to add a state to the state machine.
+This method is used to add a state to the state machine. It must be created in order to have it all work correctly. You must add a state for each step in the program or it will throw errors when you try to run it.
 
 ```.onEnter(state, ()->{ function to run })```
 
-This builder is used to add a function that will run when the state is entered.
+This builder is used to add a function that will run when the state is entered. This is mainly used to start your state function, this meaning that it will start the runToPosition in this step if you are using basic encoder drive. Specifically with Road Runner, it can be used to start an async trajectory. It is also useful in order to perform additional robot setup before running your program.
 
 ```.whileState(state, ()-> condition (when true, will break loop) , ()-> function to run)```
 
-This builder is used to add a function that will run while the supplied condition is active. When the condition becomes true, it will move on.
+This builder is used to add a function that will run while the supplied condition is active. When the condition becomes true, it will move on. This is extremely useful when you are using PID, or Road Runner specifically because they require calls to them constantly in a while loop in order to run correctly. For younger teams, this could be useful to make sure an arm is set to the correct spot.
 
 ```.onExit(state, ()->{ function to run })```
 
-This builder is used to add a function that will run when the state is exited.
+This builder is used to add a function that will run when the state is exited. You would use this to open a claw, or raise your arm for instance. It is useful to make sure something is set up correctly before the next step if you can't add it into the next onEnter.
 
 ```.transition(state, ()-> condition)```
 
-This builder is used to add a condition that will be checked to see if the state should be switched. If the condition is true, it will move on.
+This builder is used to add a condition that will be checked to see if the state should be switched. If the condition is true, it will move on. You must add this builder at the end of the state method. Essentially the amount of states, must equal the amount of transitions.
 
 ```.stopRunning(state)```
 
@@ -153,18 +155,12 @@ This is a supplier for the transition or while state that will return a boolean 
 
 ```machineName.mainLoop(this)```
 
-This function contains the main loop of the StateMachine. It takes in your current opMode as a parameter and will run the while loop for you automatically. ```while(machine.mainLoop(this)){```.
+This function contains the main loop of the StateMachine. It takes in your current opMode as a parameter and will run the while loop for you automatically. ```while(machine.mainLoop(this)){```. It will allow you to have easier use of the State Machine because it will control it all for you without any other work.
 
 ```machineName.start()```
 
-This function starts the StateMachine and will go immediately before the while loop.
+This function starts the StateMachine and must go immediately before the while loop.
 
 ```machineName.update()```
 
-This function tells the StateMachine to update the current state and check if it should switch states and what it should currently be doing.
-
-## Examples
-
-
-## Abstracting
-
+This function tells the StateMachine to update the current state and check if it should switch states and what it should currently be doing. It will be placed in the main while loop, which tells the State Machine to run the next step, or keep doing what it is doing.
