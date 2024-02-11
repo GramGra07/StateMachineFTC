@@ -164,3 +164,7 @@ This function starts the StateMachine and must go immediately before the while l
 ```machineName.update()```
 
 This function tells the StateMachine to update the current state and check if it should switch states and what it should currently be doing. It will be placed in the main while loop, which tells the State Machine to run the next step, or keep doing what it is doing.
+
+```machineName.stop()```
+
+This function completely stops the State Machine, no matter what step it is on or where it is in the process.
