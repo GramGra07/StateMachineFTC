@@ -70,9 +70,11 @@ In your ```build.gradle``` file in the TeamCode module, add the following line t
 
 ```
 dependencies {
-    implementation 'com.github.GramGra07:StateMachineFTC:1.0.1'
+    implementation 'com.github.GramGra07:StateMachineFTC:version'
 }
 ```
+
+Replace version with the version here (in green) : [![](https://jitpack.io/v/GramGra07/StateMachineFTC.svg)](https://jitpack.io/#GramGra07/StateMachineFTC)
 
 In your ```build.dependencies.gradle``` file, add the following to the repositories:
 
