@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 import org.gentrifiedApps.statemachineftc.StateMachine;
+import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -594,8 +597,10 @@ class StateMachineTestCases {
         System.out.println("Testing all looping functionality");
         AtomicInteger counter = new AtomicInteger();
         int end;
+        int rand = new Random().nextInt(100000);
+        System.out.println("Random number: " + rand);
         StateMachine.Builder<States> builder;
-        for (int l = 2; l < 500; l++) { //must start at two because of states
+        for (int l = 2; l < rand; l++) { //must start at two because of states
             counter.getAndSet(0);
             end = l;
             builder = new StateMachine.Builder<>();
@@ -1051,5 +1056,33 @@ class StateMachineTestCases {
         System.out.println("Order of operations: " + operations);
 
         System.out.println("Order of operations tested successfully");
+    }
+
+    @Test
+    void testStopMethod() {
+        System.out.println("Testing stop method");
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> true)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+
+        // Start the state machine
+        stateMachine.start();
+        assertTrue(stateMachine.isRunning());
+
+        // Stop the state machine
+        stateMachine.stop();
+        assertFalse(stateMachine.isRunning());
+        // Attempt to stop the state machine again
+        assertThrows(IllegalStateException.class, stateMachine::stop);
+        assertTrue(stateMachine.update());
+        System.out.println("Stop method tested successfully");
     }
 }

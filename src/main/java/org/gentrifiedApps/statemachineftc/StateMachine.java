@@ -160,6 +160,19 @@ public class StateMachine<T extends Enum<T>> {
             }
         }
     }
+    public void stop(){
+        if (!isRunning){
+            throw new IllegalStateException("StateMachine is already stopped");
+        }
+        isRunning = false;
+        //delete all actions
+        states.clear();
+        onEnterCommands.clear();
+        onExitCommands.clear();
+        transitions.clear();
+        whileStateCommands.clear();
+        whileStateEscapeConditions.clear();
+    }
 
     public boolean update() {
         if (!states.isEmpty()) {

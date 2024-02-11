@@ -15,7 +15,7 @@ plugins {
 apply plugin: 'com.android.library'
 
 group 'org.gentrifiedApps.statemachineftc'
-version 'v1.0.0'
+version 'v1.0.2'
 
 android {
     namespace 'org.gentrifiedApps.statemachineftc'
@@ -32,7 +32,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
         versionCode 1
-        versionName 'v1.0.0'
+        versionName 'v1.0.2'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
@@ -79,7 +79,7 @@ afterEvaluate {
             release(MavenPublication) {
                 groupId = 'org.gentrifiedApps'
                 artifactId = 'gentrifiedApps'
-                version = 'v1.0.0'
+                version = 'v1.0.1'
 
                 afterEvaluate {
                     from components.release
