@@ -70,9 +70,11 @@ In your ```build.gradle``` file in the TeamCode module, add the following line t
 
 ```
 dependencies {
-    implementation 'com.github.GramGra07:StateMachineFTC:1.0.1'
+    implementation 'com.github.GramGra07:StateMachineFTC:version'
 }
 ```
+
+Replace version with the version here (in green) : [![](https://jitpack.io/v/GramGra07/StateMachineFTC.svg)](https://jitpack.io/#GramGra07/StateMachineFTC)
 
 In your ```build.dependencies.gradle``` file, add the following to the repositories:
 
@@ -164,3 +166,7 @@ This function starts the StateMachine and must go immediately before the while l
 ```machineName.update()```
 
 This function tells the StateMachine to update the current state and check if it should switch states and what it should currently be doing. It will be placed in the main while loop, which tells the State Machine to run the next step, or keep doing what it is doing.
+
+```machineName.stop()```
+
+This function completely stops the State Machine, no matter what step it is on or where it is in the process.
