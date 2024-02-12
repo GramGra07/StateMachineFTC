@@ -122,6 +122,15 @@ public class StateMachine<T extends Enum<T>> {
             });
             return this;
         }
+        public Builder<T> delayEnter(T state, double delaySeconds) {
+            if (delaySeconds <= 0){
+                throw new IllegalArgumentException("Delay cannot be 0");
+            }
+            long startTime = System.currentTimeMillis();
+            whileStateCommands.put(state, () -> {});
+            whileStateEscapeConditions.put(state, () -> System.currentTimeMillis() - startTime >= delaySeconds*1000);
+            return this;
+        }
 
         public StateMachine<T> build() {
             if (states == null || states.isEmpty() || transitions == null || transitions.isEmpty()) {

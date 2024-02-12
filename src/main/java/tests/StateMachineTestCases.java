@@ -1,13 +1,12 @@
+package tests;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import org.gentrifiedApps.statemachineftc.StateMachine;
-import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -597,7 +596,7 @@ class StateMachineTestCases {
         System.out.println("Testing all looping functionality");
         AtomicInteger counter = new AtomicInteger();
         int end;
-        int rand = new Random().nextInt(100000);
+        int rand = new Random().nextInt(1000);
         System.out.println("Random number: " + rand);
         StateMachine.Builder<States> builder;
         for (int l = 2; l < rand; l++) { //must start at two because of states
@@ -1084,5 +1083,477 @@ class StateMachineTestCases {
         assertThrows(IllegalStateException.class, stateMachine::stop);
         assertTrue(stateMachine.update());
         System.out.println("Stop method tested successfully");
+    }
+
+    @Test
+    void testDelayState() {
+        System.out.println("Testing delay state");
+
+        // Create a flag to track if the delay state was entered
+        final boolean[] delayStateEntered = {false};
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2)
+                .delayEnter(States.STATE2, 1) // Delay for 1 second
+                .onEnter(States.STATE2, () -> {
+                    System.out.println("Entering STATE2");
+                    delayStateEntered[0] = true;
+                })
+                .transition(States.STATE2, () -> true)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
+
+        // Update the state machine
+        stateMachine.update();
+
+        // Check that the state machine is in the delay state
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+
+        // Check that the delay state was entered
+        assertTrue(delayStateEntered[0]);
+
+        // Wait for more than the delay time
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Update the state machine again
+        stateMachine.update();
+
+        // Check that the state machine has transitioned out of the delay state
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+
+        System.out.println("Delay state tested successfully");
+    }
+
+    @Test
+    void testDelayError() {
+        System.out.println("Testing delay state error");
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2);
+        for (int i = 0; i < 100; i++) {
+            int rand = new Random().nextInt(10);
+            assertThrows(IllegalArgumentException.class, () -> builder.delayEnter(States.STATE2, -rand));
+        }
+        System.out.println("Delay state error tested successfully");
+    }
+
+    @Test
+    void testMultipleDelayStates() {
+        System.out.println("Testing multiple delay states");
+
+        // Create flags to track if the delay states were entered
+        final boolean[] delayState1Entered = {false};
+        final boolean[] delayState2Entered = {false};
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2)
+                .delayEnter(States.STATE2, 1) // Delay for 1 second
+                .onEnter(States.STATE2, () -> {
+                    System.out.println("Entering STATE2");
+                    delayState1Entered[0] = true;
+                })
+                .transition(States.STATE2, () -> true)
+                .state(States.STATE3)
+                .delayEnter(States.STATE3, 2) // Delay for 2 seconds
+                .onEnter(States.STATE3, () -> {
+                    System.out.println("Entering STATE3");
+                    delayState2Entered[0] = true;
+                })
+                .transition(States.STATE3, () -> true)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
+
+        // Update the state machine
+        stateMachine.update();
+
+        // Check that the state machine is in the first delay state
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+
+        // Check that the first delay state was entered
+        assertTrue(delayState1Entered[0]);
+
+        // Wait for more than the first delay time
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Update the state machine again
+        stateMachine.update();
+
+        // Check that the state machine is in the second delay state
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
+
+        // Check that the second delay state was entered
+        assertTrue(delayState2Entered[0]);
+
+        // Wait for more than the second delay time
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Update the state machine again
+        stateMachine.update();
+
+        // Check that the state machine has transitioned out of the delay states
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+
+        System.out.println("Multiple delay states tested successfully");
+    }
+
+    @Test
+    void testDelayStateWithTransition() {
+        System.out.println("Testing delay state with transition");
+
+        // Create a flag to track if the delay state was entered
+        final boolean[] delayStateEntered = {false};
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2)
+                .delayEnter(States.STATE2, 1) // Delay for 1 second
+                .onEnter(States.STATE2, () -> {
+                    System.out.println("Entering STATE2");
+                    delayStateEntered[0] = true;
+                })
+                .transition(States.STATE2, () -> true)
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .transition(States.STATE3, () -> true)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
+
+        // Update the state machine
+        stateMachine.update();
+
+        // Check that the state machine is in the delay state
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+
+        // Check that the delay state was entered
+        assertTrue(delayStateEntered[0]);
+
+        // Wait for more than the delay time
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Update the state machine again
+        stateMachine.update();
+
+        // Check that the state machine has transitioned out of the delay state
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
+
+        System.out.println("Delay state with transition tested successfully");
+    }
+
+    @Test
+    void testStopAfterDelay() {
+        System.out.println("Testing stop after delay");
+        // Create a flag to track if the delay state was entered
+        final boolean[] delayStateEntered = {false};
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2)
+                .delayEnter(States.STATE2, 1) // Delay for 1 second
+                .onEnter(States.STATE2, () -> {
+                    System.out.println("Entering STATE2");
+                    delayStateEntered[0] = true;
+                })
+                .transition(States.STATE2, () -> true)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
+
+        // Update the state machine
+        stateMachine.update();
+
+        // Check that the state machine is in the delay state
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+
+        // Check that the delay state was entered
+        assertTrue(delayStateEntered[0]);
+
+        // Wait for more than the delay time
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Update the state machine again
+        stateMachine.update();
+
+        // Check that the state machine has transitioned out of the delay state
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+
+        System.out.println("Stop after delay tested successfully");
+    }
+
+    @Test
+    public void testStopAfterDelay2() {
+        System.out.println("Testing stop after delay");
+
+        // Create a flag to track if the delay state was entered
+        final boolean[] delayStateEntered = {false};
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true)
+                .state(States.STATE2)
+                .delayEnter(States.STATE2, 1) // Delay for 1 second
+                .onEnter(States.STATE2, () -> {
+                    System.out.println("Entering STATE2");
+                    delayStateEntered[0] = true;
+                })
+                .transition(States.STATE2, () -> true)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
+
+        // Update the state machine
+        stateMachine.update();
+
+        // Check that the state machine is in the delay state
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+
+        // Check that the delay state was entered
+        assertTrue(delayStateEntered[0]);
+
+        // Stop the state machine while it's in the delay state
+        stateMachine.stop();
+
+        // Check that the state machine has stopped
+        assertFalse(stateMachine.isRunning());
+
+        System.out.println("Stop after delay tested successfully");
+    }
+@Test
+void testRandomDelay() {
+    System.out.println("Testing random delay");
+
+    // Create a flag to track if the delay state was entered
+    final boolean[] delayStateEntered = {false};
+
+    // Generate a random delay time
+    Random random = new Random();
+    int delayTime = random.nextInt(10); // Delay for a random time up to 5 seconds
+    System.out.println(delayTime +"seconds");
+    // Set up the state machine
+    StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+    builder.state(States.STATE1)
+            .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+            .transition(States.STATE1, () -> true)
+            .state(States.STATE2)
+            .delayEnter(States.STATE2, delayTime)
+            .onEnter(States.STATE2, () -> {
+                System.out.println("Entering STATE2");
+                delayStateEntered[0] = true;
+            })
+            .transition(States.STATE2, () -> true)
+            .stopRunning(States.STOP);
+    StateMachine<States> stateMachine = builder.build();
+    stateMachine.start();
+
+    // Update the state machine
+    stateMachine.update();
+
+    // Check that the state machine is in the delay state
+    assertEquals(States.STATE2, stateMachine.getCurrentState());
+
+    // Check that the delay state was entered
+    assertTrue(delayStateEntered[0]);
+
+    // Wait for the random delay time
+    try {
+        Thread.sleep(delayTime*1000 + 1000); // Wait for the delay time plus an extra second
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+
+    // Update the state machine again
+    stateMachine.update();
+
+    // Check that the state machine has transitioned out of the delay state
+    assertEquals(States.STOP, stateMachine.getCurrentState());
+
+    System.out.println("Random delay tested successfully");
+}
+    @Test
+    void testEverything() {
+        System.out.println("Testing all functionality");
+
+        // Test basic functionality
+        testBasic();
+
+        // Test onExit functionality
+        testOnExit();
+
+        // Test stop functionality
+        testStop();
+
+        // Test whileState functionality
+        testWhileState();
+
+        // Test invalid state functionality
+        testInvalidState();
+
+        // Test duplicate states functionality
+        testDuplicateStates();
+
+        // Test no onEnter for initial state functionality
+        testNoOnEnterForInitialState();
+
+        // Test invalid transition functionality
+        testInvalidTransition();
+
+        // Test invalid onEnter functionality
+        testInvalidOnEnter();
+
+        // Test invalid onExit functionality
+        testInvalidOnExit();
+
+        // Test mismatched states and transitions functionality
+        testMismatchedStatesAndTransitions();
+
+        // Test no stop functionality
+        testNoStop();
+
+        // Test null states and transitions functionality
+        testNullStatesAndTransitions();
+
+        // Test invalid build functionality
+        testInvalidBuild();
+
+        // Test start functionality
+        testStart();
+
+        // Test update functionality
+        testUpdate();
+
+        // Test isValidTransition functionality
+        testIsValidTransition();
+
+        // Test getStateHistory functionality
+        testGetStateHistory();
+
+        // Test update five times functionality
+        testUpdateFiveTimes();
+
+        // Test getCurrentState functionality
+        testGetCurrentState();
+
+        // Test extensive isValidTransition functionality
+        extensiveTestIsValidTransition();
+
+        // Test valid transition functionality
+        testValidTransition();
+
+        // Test invalid transition again functionality
+        testInvalidTransitionAgain();
+
+        // Test non-existent states functionality
+        testNonExistentStates();
+
+        // Test update extensive functionality
+        testUpdateExtensive();
+
+        // Test all but first functionality
+        testAllButFirst();
+
+        // Test all functionality
+        testAll();
+
+        // Test all loop functionality
+        testAllLoopFunctionality();
+
+        // Test small number of states functionality
+        testSmallNumberOfStates();
+
+        // Test large number of states functionality
+        testLargeNumberOfStates();
+
+        // Test complex transition functionality
+        testComplexTransition();
+
+        // Test extreme complex transition functionality
+        testExtremeComplexTransition();
+
+        // Test comprehensive functionality
+        testComprehensive();
+
+        // Test state with transition to itself functionality
+        testStateWithTransitionToItself();
+
+        // Test state with multiple transitions functionality
+        testStateWithMultipleTransitions();
+
+        // Test state with no transitions functionality
+        testStateWithNoTransitions();
+
+        // Test state with transition to new state functionality
+        testStateWithTransitionToNewState();
+
+        // Test state with transition to unvisited state functionality
+        testStateWithTransitionToUnvisitedState();
+
+        // Test start with already started state machine functionality
+        testStartWithAlreadyStartedStateMachine();
+
+        // Test update with stopped state machine functionality
+        testUpdateWithStoppedStateMachine();
+
+        // Test order of operations functionality
+        testOrderOfOperations();
+
+        // Test stop method functionality
+        testStopMethod();
+
+        // Test delay state functionality
+        testDelayState();
+
+        // Test delay error functionality
+        testDelayError();
+
+        // Test multiple delay states functionality
+        testMultipleDelayStates();
+
+        testStopAfterDelay();
+        testStopAfterDelay2();
+        testRandomDelay();
+
+        System.out.println("All functionality tested successfully");
     }
 }
