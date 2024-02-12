@@ -34,10 +34,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -61,10 +61,10 @@ class StateMachineTestCases {
                     System.out.println("Exiting STATE1");
                     commandExecuted[0] = true;
                 })
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         stateMachine = builder.build();
         stateMachine.start();
@@ -87,10 +87,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -116,7 +116,7 @@ class StateMachineTestCases {
                     commandExecuted[0] = true;
                     commandExecuted[1] = true;
                 })
-                .transition(States.STATE1, () -> false)
+                .transition(States.STATE1, () -> false, 0)
                 .stopRunning(States.STOP);
         stateMachine = builder.build();
         stateMachine.start();
@@ -161,7 +161,7 @@ class StateMachineTestCases {
         System.out.println("Testing invalid transition");
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1);
-        assertThrows(IllegalArgumentException.class, () -> builder.transition(States.STATE2, () -> true));
+        assertThrows(IllegalArgumentException.class, () -> builder.transition(States.STATE2, () -> true, 0));
     }
 
     @Test
@@ -186,7 +186,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"));
         assertThrows(IllegalArgumentException.class, builder::build);
@@ -198,10 +198,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1);
         builder.onEnter(States.STATE1, () -> System.out.println("Entering STATE1"));
-        builder.transition(States.STATE1, () -> true);
+        builder.transition(States.STATE1, () -> true, 0);
         builder.state(States.STATE2);
         builder.onEnter(States.STATE2, () -> System.out.println("Entering STATE2"));
-        builder.transition(States.STATE2, () -> true);
+        builder.transition(States.STATE2, () -> true, 0);
         assertThrows(IllegalArgumentException.class, builder::build);
     }
 
@@ -226,7 +226,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> false)
+                .transition(States.STATE1, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -239,10 +239,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -258,10 +258,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -281,10 +281,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -305,19 +305,19 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .state(States.STATE3)
                 .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> true)
+                .transition(States.STATE3, () -> true, 0)
                 .state(States.STATE4)
                 .onEnter(States.STATE4, () -> System.out.println("Entering STATE4"))
-                .transition(States.STATE4, () -> true)
+                .transition(States.STATE4, () -> true, 0)
                 .state(States.STATE5)
                 .onEnter(States.STATE5, () -> System.out.println("Entering STATE5"))
-                .transition(States.STATE5, () -> true)
+                .transition(States.STATE5, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -344,10 +344,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -372,10 +372,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -400,10 +400,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -420,10 +420,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -440,10 +440,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -462,13 +462,13 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .state(States.STATE3)
                 .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> false)
+                .transition(States.STATE3, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -485,7 +485,7 @@ class StateMachineTestCases {
         builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .stopRunning(States.STOP);
         stateMachine = builder.build();
         stateMachine.start();
@@ -499,7 +499,7 @@ class StateMachineTestCases {
         builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> false)
+                .transition(States.STATE1, () -> false, 0)
                 .stopRunning(States.STOP);
         stateMachine = builder.build();
         stateMachine.start();
@@ -520,10 +520,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> false)
+                .transition(States.STATE2, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -563,10 +563,10 @@ class StateMachineTestCases {
                     System.out.println("Exiting STATE1");
                     commandExecuted[0] = true;
                 })
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .stopRunning(States.STOP);
         stateMachine = builder.build();
 
@@ -608,7 +608,7 @@ class StateMachineTestCases {
                     .onEnter(States.STATE1, () -> {
 //                        System.out.println("Entering STATE1");
                     })
-                    .transition(States.STATE1, () -> true)
+                    .transition(States.STATE1, () -> true, 0)
                     .state(States.STATE2)
                     .onEnter(States.STATE2, () -> {
 //                        System.out.println("Entering STATE2");
@@ -620,7 +620,7 @@ class StateMachineTestCases {
                                 counter.getAndIncrement();
                             })
                     .transition(States.STATE2, () ->
-                            counter.get() == finalEnd
+                            counter.get() == finalEnd, 0
                     )
                     .stopRunning(States.STOP);
             stateMachine = builder.build();
@@ -652,7 +652,7 @@ class StateMachineTestCases {
             }
             builder.state(state)
                     .onEnter(state, () -> System.out.println("Entering " + state))
-                    .transition(state, () -> true);
+                    .transition(state, () -> true, 0);
         }
         builder.stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
@@ -697,7 +697,7 @@ class StateMachineTestCases {
             }
             builder.state(state)
                     .onEnter(state, () -> System.out.println("Entering " + state))
-                    .transition(state, () -> true);
+                    .transition(state, () -> true, 0);
         }
         builder.stopRunning(LargeStates.STOP);
         StateMachine<LargeStates> stateMachine = builder.build();
@@ -724,7 +724,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
                 .whileState(States.STATE2, () -> rand[0] < 5, () -> {
@@ -732,11 +732,11 @@ class StateMachineTestCases {
                     rand[0] = new Random().nextInt(10);
                     System.out.println("Random number: " + rand[0]);
                 })
-                .transition(States.STATE2, () -> rand[0] < 5
+                .transition(States.STATE2, () -> rand[0] < 5, 0
                 )
                 .state(States.STATE3)
                 .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> true)
+                .transition(States.STATE3, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -762,7 +762,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
                 .whileState(States.STATE2, () -> rand[0] < low, () -> {
@@ -770,10 +770,10 @@ class StateMachineTestCases {
                     rand[0] = new Random().nextInt(bound);
                     System.out.println("Random number: " + rand[0]);
                 })
-                .transition(States.STATE2, () -> rand[0] < low)
+                .transition(States.STATE2, () -> rand[0] < low, 0)
                 .state(States.STATE3)
                 .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> true)
+                .transition(States.STATE3, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -797,13 +797,13 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .state(States.STATE3)
                 .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> false)
+                .transition(States.STATE3, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
 
@@ -848,7 +848,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -868,8 +868,8 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
-                .transition(States.STATE1, () -> false)
+                .transition(States.STATE1, () -> true, 0)
+                .transition(States.STATE1, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -907,10 +907,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE4) // new state
                 .onEnter(States.STATE4, () -> System.out.println("Entering STATE4"))
-                .transition(States.STATE4, () -> false)
+                .transition(States.STATE4, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -932,10 +932,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE5) // unvisited state
                 .onEnter(States.STATE5, () -> System.out.println("Entering STATE5"))
-                .transition(States.STATE5, () -> false)
+                .transition(States.STATE5, () -> false, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -957,7 +957,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
 
@@ -978,7 +978,7 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
 
@@ -1013,14 +1013,14 @@ class StateMachineTestCases {
                 .transition(States.STATE1, () -> {
                     operations.add("Transitioning from STATE1");
                     return true;
-                })
+                }, 0)
                 .onExit(States.STATE1, () -> operations.add("Exiting STATE1"))
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> operations.add("Entering STATE2"))
                 .transition(States.STATE2, () -> {
                     operations.add("Transitioning from STATE2");
                     return true;
-                })
+                }, 0)
                 .onExit(States.STATE2, () -> operations.add("Exiting STATE2"))
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
@@ -1065,10 +1065,10 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 0)
                 .state(States.STATE2)
                 .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
 
@@ -1096,14 +1096,13 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 1)
                 .state(States.STATE2)
-                .delayEnter(States.STATE2, 1) // Delay for 1 second
                 .onEnter(States.STATE2, () -> {
                     System.out.println("Entering STATE2");
                     delayStateEntered[0] = true;
                 })
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -1117,13 +1116,6 @@ class StateMachineTestCases {
         // Check that the delay state was entered
         assertTrue(delayStateEntered[0]);
 
-        // Wait for more than the delay time
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         // Update the state machine again
         stateMachine.update();
 
@@ -1131,23 +1123,6 @@ class StateMachineTestCases {
         assertEquals(States.STOP, stateMachine.getCurrentState());
 
         System.out.println("Delay state tested successfully");
-    }
-
-    @Test
-    void testDelayError() {
-        System.out.println("Testing delay state error");
-
-        // Set up the state machine
-        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
-        builder.state(States.STATE1)
-                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
-                .state(States.STATE2);
-        for (int i = 0; i < 100; i++) {
-            int rand = new Random().nextInt(10);
-            assertThrows(IllegalArgumentException.class, () -> builder.delayEnter(States.STATE2, -rand));
-        }
-        System.out.println("Delay state error tested successfully");
     }
 
     @Test
@@ -1162,21 +1137,19 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 1)
                 .state(States.STATE2)
-                .delayEnter(States.STATE2, 1) // Delay for 1 second
                 .onEnter(States.STATE2, () -> {
                     System.out.println("Entering STATE2");
                     delayState1Entered[0] = true;
                 })
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 2)
                 .state(States.STATE3)
-                .delayEnter(States.STATE3, 2) // Delay for 2 seconds
                 .onEnter(States.STATE3, () -> {
                     System.out.println("Entering STATE3");
                     delayState2Entered[0] = true;
                 })
-                .transition(States.STATE3, () -> true)
+                .transition(States.STATE3, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -1190,13 +1163,6 @@ class StateMachineTestCases {
         // Check that the first delay state was entered
         assertTrue(delayState1Entered[0]);
 
-        // Wait for more than the first delay time
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         // Update the state machine again
         stateMachine.update();
 
@@ -1205,13 +1171,6 @@ class StateMachineTestCases {
 
         // Check that the second delay state was entered
         assertTrue(delayState2Entered[0]);
-
-        // Wait for more than the second delay time
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         // Update the state machine again
         stateMachine.update();
@@ -1233,17 +1192,16 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 1)
                 .state(States.STATE2)
-                .delayEnter(States.STATE2, 1) // Delay for 1 second
                 .onEnter(States.STATE2, () -> {
                     System.out.println("Entering STATE2");
                     delayStateEntered[0] = true;
                 })
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .state(States.STATE3)
                 .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> true)
+                .transition(States.STATE3, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -1256,13 +1214,6 @@ class StateMachineTestCases {
 
         // Check that the delay state was entered
         assertTrue(delayStateEntered[0]);
-
-        // Wait for more than the delay time
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         // Update the state machine again
         stateMachine.update();
@@ -1283,14 +1234,13 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 1)
                 .state(States.STATE2)
-                .delayEnter(States.STATE2, 1) // Delay for 1 second
                 .onEnter(States.STATE2, () -> {
                     System.out.println("Entering STATE2");
                     delayStateEntered[0] = true;
                 })
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -1303,13 +1253,6 @@ class StateMachineTestCases {
 
         // Check that the delay state was entered
         assertTrue(delayStateEntered[0]);
-
-        // Wait for more than the delay time
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         // Update the state machine again
         stateMachine.update();
@@ -1331,14 +1274,13 @@ class StateMachineTestCases {
         StateMachine.Builder<States> builder = new StateMachine.Builder<>();
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true)
+                .transition(States.STATE1, () -> true, 1)
                 .state(States.STATE2)
-                .delayEnter(States.STATE2, 1) // Delay for 1 second
                 .onEnter(States.STATE2, () -> {
                     System.out.println("Entering STATE2");
                     delayStateEntered[0] = true;
                 })
-                .transition(States.STATE2, () -> true)
+                .transition(States.STATE2, () -> true, 0)
                 .stopRunning(States.STOP);
         StateMachine<States> stateMachine = builder.build();
         stateMachine.start();
@@ -1360,200 +1302,263 @@ class StateMachineTestCases {
 
         System.out.println("Stop after delay tested successfully");
     }
-@Test
-void testRandomDelay() {
-    System.out.println("Testing random delay");
 
-    // Create a flag to track if the delay state was entered
-    final boolean[] delayStateEntered = {false};
+    @Test
+    void testRandomDelay() {
+        System.out.println("Testing random delay");
 
-    // Generate a random delay time
-    Random random = new Random();
-    int delayTime = random.nextInt(10); // Delay for a random time up to 5 seconds
-    System.out.println(delayTime +"seconds");
-    // Set up the state machine
-    StateMachine.Builder<States> builder = new StateMachine.Builder<>();
-    builder.state(States.STATE1)
-            .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-            .transition(States.STATE1, () -> true)
-            .state(States.STATE2)
-            .delayEnter(States.STATE2, delayTime)
-            .onEnter(States.STATE2, () -> {
-                System.out.println("Entering STATE2");
-                delayStateEntered[0] = true;
-            })
-            .transition(States.STATE2, () -> true)
-            .stopRunning(States.STOP);
-    StateMachine<States> stateMachine = builder.build();
-    stateMachine.start();
+        // Create a flag to track if the delay state was entered
+        final boolean[] delayStateEntered = {false};
 
-    // Update the state machine
-    stateMachine.update();
+        // Generate a random delay time
+        Random random = new Random();
+        int delayTime = random.nextInt(10); // Delay for a random time up to 5 seconds
+        System.out.println(delayTime + "seconds");
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true, delayTime)
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> {
+                    System.out.println("Entering STATE2");
+                    delayStateEntered[0] = true;
+                })
+                .transition(States.STATE2, () -> true, 0)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
 
-    // Check that the state machine is in the delay state
-    assertEquals(States.STATE2, stateMachine.getCurrentState());
+        // Update the state machine
+        stateMachine.update();
 
-    // Check that the delay state was entered
-    assertTrue(delayStateEntered[0]);
+        // Check that the state machine is in the delay state
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
 
-    // Wait for the random delay time
-    try {
-        Thread.sleep(delayTime*1000 + 1000); // Wait for the delay time plus an extra second
-    } catch (InterruptedException e) {
-        e.printStackTrace();
+        // Check that the delay state was entered
+        assertTrue(delayStateEntered[0]);
+
+        // Update the state machine again
+        stateMachine.update();
+
+        // Check that the state machine has transitioned out of the delay state
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+
+        System.out.println("Random delay tested successfully");
     }
 
-    // Update the state machine again
-    stateMachine.update();
-
-    // Check that the state machine has transitioned out of the delay state
-    assertEquals(States.STOP, stateMachine.getCurrentState());
-
-    System.out.println("Random delay tested successfully");
-}
     @Test
-    void testEverything() {
-        System.out.println("Testing all functionality");
+    void testComprehensiveDelayState() {
+        System.out.println("Testing comprehensive delay state");
 
-        // Test basic functionality
-        testBasic();
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true, 1.0) // 1 second delay
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> true, 1.0) // 1 second delay
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .transition(States.STATE3, () -> true, 0)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
 
-        // Test onExit functionality
-        testOnExit();
+        // Start the state machine
+        stateMachine.start();
+        assertEquals(States.STATE1, stateMachine.getCurrentState());
 
-        // Test stop functionality
-        testStop();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
 
-        // Test whileState functionality
-        testWhileState();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+        assertFalse(stateMachine.isRunning());
 
-        // Test invalid state functionality
-        testInvalidState();
+        System.out.println("Comprehensive delay state tested successfully");
+    }
 
-        // Test duplicate states functionality
-        testDuplicateStates();
+    @Test
+    void testExtremelyComprehensiveDelayState() {
+        System.out.println("Testing extremely comprehensive delay state");
 
-        // Test no onEnter for initial state functionality
-        testNoOnEnterForInitialState();
 
-        // Test invalid transition functionality
-        testInvalidTransition();
+        long startTime = System.currentTimeMillis();
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true, 1.0) // 1 second delay
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> true, 1.0) // 1 second delay
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .transition(States.STATE3, () -> true, 1.0) // 1 second delay
+                .state(States.STATE4)
+                .onEnter(States.STATE4, () -> System.out.println("Entering STATE4"))
+                .transition(States.STATE4, () -> true, 0)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        // Start the state machine
+        stateMachine.start();
+        assertEquals(States.STATE1, stateMachine.getCurrentState());
 
-        // Test invalid onEnter functionality
-        testInvalidOnEnter();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
 
-        // Test invalid onExit functionality
-        testInvalidOnExit();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
 
-        // Test mismatched states and transitions functionality
-        testMismatchedStatesAndTransitions();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE4, stateMachine.getCurrentState());
 
-        // Test no stop functionality
-        testNoStop();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+        assertFalse(stateMachine.isRunning());
+        long endTime = System.currentTimeMillis();
+        System.out.println(Math.abs(endTime - startTime));
+        assertTrue(Math.abs(endTime - startTime) > 3000);
+        System.out.println("Extremely comprehensive delay state tested successfully");
+    }
 
-        // Test null states and transitions functionality
-        testNullStatesAndTransitions();
+    @Test
+    void testComprehensiveRandomDelayState() {
+        System.out.println("Testing comprehensive random delay state");
+        long startTime = System.currentTimeMillis();
+        int[] random = {0, 0, 0, 0};
+        random[0] = new Random().nextInt(20);
+        System.out.println(random[0] + " seconds");
+        random[1] = new Random().nextInt(20);
+        System.out.println(random[1] + " seconds");
+        random[2] = new Random().nextInt(20);
+        System.out.println(random[2] + " seconds");
+        random[3] = new Random().nextInt(20);
+        System.out.println(random[3] + " seconds");
 
-        // Test invalid build functionality
-        testInvalidBuild();
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true, random[0]) // 1 second delay
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> true, random[1]) // 1 second delay
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .transition(States.STATE3, () -> true, random[2]) // 1 second delay
+                .state(States.STATE4)
+                .onEnter(States.STATE4, () -> System.out.println("Entering STATE4"))
+                .transition(States.STATE4, () -> true, random[3])
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        // Start the state machine
+        stateMachine.start();
+        assertEquals(States.STATE1, stateMachine.getCurrentState());
 
-        // Test start functionality
-        testStart();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
 
-        // Test update functionality
-        testUpdate();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
 
-        // Test isValidTransition functionality
-        testIsValidTransition();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE4, stateMachine.getCurrentState());
 
-        // Test getStateHistory functionality
-        testGetStateHistory();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+        assertFalse(stateMachine.isRunning());
+        long endTime = System.currentTimeMillis();
+        System.out.println(Math.abs(endTime - startTime));
+        assertTrue(Math.abs(endTime - startTime) > (random[0] + random[1] + random[2] + random[3]) * 1000);
+        System.out.println("Comprehensive random delay state tested successfully");
+    }
 
-        // Test update five times functionality
-        testUpdateFiveTimes();
+    @Test
+    void testComplexTransitionIntoDelay() {
+        System.out.println("Testing complex transition into delay");
+        long startTime = System.currentTimeMillis();
+        int[] random = {0, 0, 0, 0};
+        random[0] = new Random().nextInt(15);
+        System.out.println(random[0] + " seconds");
+        random[1] = new Random().nextInt(15);
+        System.out.println(random[1] + " seconds");
 
-        // Test getCurrentState functionality
-        testGetCurrentState();
+        final int bound = 1000;
+        final int[] rand = {bound};
+        final int low = 5;
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .whileState(States.STATE1, () -> rand[0] < low, () -> {
+                    // Simulate a complex command with a random number generator
+                    rand[0] = new Random().nextInt(bound);
+                    System.out.println("Random number: " + rand[0]);
+                })
+                .transition(States.STATE1, () -> rand[0] < low, random[0]) // complex transition
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> true, random[1]) // 1 second delay
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .transition(States.STATE3, () -> true, 0)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
 
-        // Test extensive isValidTransition functionality
-        extensiveTestIsValidTransition();
+        // Start the state machine
+        stateMachine.start();
+        assertEquals(States.STATE1, stateMachine.getCurrentState());
 
-        // Test valid transition functionality
-        testValidTransition();
+        // Update the state machine
+        stateMachine.update();
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
 
-        // Test invalid transition again functionality
-        testInvalidTransitionAgain();
+        assertTrue(stateMachine.isRunning());
+        stateMachine.update();
 
-        // Test non-existent states functionality
-        testNonExistentStates();
+        long endTime = System.currentTimeMillis();
+        System.out.println(Math.abs(endTime - startTime));
+        assertTrue(Math.abs(endTime - startTime) > (random[0] + random[1]) * 1000);
+        System.out.println("Complex transition into delay tested successfully");
+    }
+    @Test
+    void testDelayError() {
+        System.out.println("Testing complex transition into delay");
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"));
+        assertThrows(IllegalArgumentException.class, ()->builder.transition(States.STATE1, () -> true, -1));
 
-        // Test update extensive functionality
-        testUpdateExtensive();
+        System.out.println("Delay error tested successfully");
+    }
+    @Test
+    void testDelayErrorRandomNegative() {
+        System.out.println("Testing complex transition into delay");
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"));
+        for (int i = 0; i < 100; i++) {
+            int random = new Random().nextInt(1000);
+            assertThrows(IllegalArgumentException.class, () -> builder.transition(States.STATE1, () -> true, -random));
+        }
 
-        // Test all but first functionality
-        testAllButFirst();
-
-        // Test all functionality
-        testAll();
-
-        // Test all loop functionality
-        testAllLoopFunctionality();
-
-        // Test small number of states functionality
-        testSmallNumberOfStates();
-
-        // Test large number of states functionality
-        testLargeNumberOfStates();
-
-        // Test complex transition functionality
-        testComplexTransition();
-
-        // Test extreme complex transition functionality
-        testExtremeComplexTransition();
-
-        // Test comprehensive functionality
-        testComprehensive();
-
-        // Test state with transition to itself functionality
-        testStateWithTransitionToItself();
-
-        // Test state with multiple transitions functionality
-        testStateWithMultipleTransitions();
-
-        // Test state with no transitions functionality
-        testStateWithNoTransitions();
-
-        // Test state with transition to new state functionality
-        testStateWithTransitionToNewState();
-
-        // Test state with transition to unvisited state functionality
-        testStateWithTransitionToUnvisitedState();
-
-        // Test start with already started state machine functionality
-        testStartWithAlreadyStartedStateMachine();
-
-        // Test update with stopped state machine functionality
-        testUpdateWithStoppedStateMachine();
-
-        // Test order of operations functionality
-        testOrderOfOperations();
-
-        // Test stop method functionality
-        testStopMethod();
-
-        // Test delay state functionality
-        testDelayState();
-
-        // Test delay error functionality
-        testDelayError();
-
-        // Test multiple delay states functionality
-        testMultipleDelayStates();
-
-        testStopAfterDelay();
-        testStopAfterDelay2();
-        testRandomDelay();
-
-        System.out.println("All functionality tested successfully");
+        System.out.println("Delay error tested successfully");
     }
 }

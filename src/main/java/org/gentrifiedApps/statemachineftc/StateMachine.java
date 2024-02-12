@@ -16,13 +16,11 @@ public class StateMachine<T extends Enum<T>> {
     private Map<T, Supplier<Boolean>> transitions;
     private Map<T, StateChangeCallback> whileStateCommands;
     private Map<T, Supplier<Boolean>> whileStateEscapeConditions;
+    private Map<T, Double> transitionDelayTimes;
     private T currentState;
     private List<T> stateHistory;
     private boolean isStarted = false;
     private boolean isRunning = true;
-
-    public <T extends Enum<T>> StateMachine(T initialState, Map onEnterCommands, Map onExitCommands, Map transitions, Map stopConditions) {
-    }
 
     public T getCurrentState() {
         return currentState;
@@ -43,6 +41,7 @@ public class StateMachine<T extends Enum<T>> {
         this.transitions = builder.transitions;
         this.whileStateCommands = builder.whileStateCommands;
         this.whileStateEscapeConditions = builder.whileStateEscapeConditions;
+        this.transitionDelayTimes = builder.delayTimes;
         this.currentState = null;
         this.stateHistory = new ArrayList<>();
     }
@@ -54,6 +53,7 @@ public class StateMachine<T extends Enum<T>> {
         private Map<T, Supplier<Boolean>> transitions;
         private Map<T, StateChangeCallback> whileStateCommands;
         private Map<T, Supplier<Boolean>> whileStateEscapeConditions;
+        private Map<T, Double> delayTimes;
         private StateMachine<T> machine;
         private int stopRunningIncluded = 0;
 
@@ -64,6 +64,7 @@ public class StateMachine<T extends Enum<T>> {
             transitions = new HashMap<>();
             whileStateCommands = new HashMap<>();
             whileStateEscapeConditions = new HashMap<>();
+            delayTimes = new HashMap<>();
         }
 
         public Builder<T> state(T state) {
@@ -96,11 +97,15 @@ public class StateMachine<T extends Enum<T>> {
             return this;
         }
 
-        public Builder<T> transition(T state, Supplier<Boolean> condition) {
+        public Builder<T> transition(T state, Supplier<Boolean> condition, double delaySeconds) {
             if (!states.contains(state)) {
                 throw new IllegalArgumentException("State does not exist");
             }
+            if (delaySeconds < 0) {
+                throw new IllegalArgumentException("Delay cannot be negative");
+            }
             transitions.put(state, condition);
+            delayTimes.put(state, delaySeconds);
             return this;
         }
 
@@ -120,15 +125,6 @@ public class StateMachine<T extends Enum<T>> {
                 this.machine.isRunning = false;
                 return true;
             });
-            return this;
-        }
-        public Builder<T> delayEnter(T state, double delaySeconds) {
-            if (delaySeconds <= 0){
-                throw new IllegalArgumentException("Delay cannot be 0");
-            }
-            long startTime = System.currentTimeMillis();
-            whileStateCommands.put(state, () -> {});
-            whileStateEscapeConditions.put(state, () -> System.currentTimeMillis() - startTime >= delaySeconds*1000);
             return this;
         }
 
@@ -169,8 +165,9 @@ public class StateMachine<T extends Enum<T>> {
             }
         }
     }
-    public void stop(){
-        if (!isRunning){
+
+    public void stop() {
+        if (!isRunning) {
             throw new IllegalStateException("StateMachine is already stopped");
         }
         isRunning = false;
@@ -181,6 +178,7 @@ public class StateMachine<T extends Enum<T>> {
         transitions.clear();
         whileStateCommands.clear();
         whileStateEscapeConditions.clear();
+        transitionDelayTimes.clear();
     }
 
     public boolean update() {
@@ -209,6 +207,15 @@ public class StateMachine<T extends Enum<T>> {
                 if (onExitAction != null) {
                     onExitAction.onStateChange();
                 }
+                // Delay the transition
+                double delayTime = transitionDelayTimes.get(currentState);
+                if (delayTime > 0) {
+                    try {
+                        Thread.sleep((long) (delayTime * 1000));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 // Add the current state to the history
                 stateHistory.add(currentState);
                 // Remove the current state
@@ -230,13 +237,13 @@ public class StateMachine<T extends Enum<T>> {
     }
 
     public boolean isValidTransition(T fromState, T toState) {
-        if (fromState == toState){
+        if (fromState == toState) {
             throw new IllegalArgumentException("Cannot transition to itself");
         }
         if (!states.contains(fromState) && !stateHistory.contains(fromState)) {
             throw new IllegalArgumentException(fromState + " does not exist in the state machine");
         }
-        if (!states.contains(toState)){
+        if (!states.contains(toState)) {
             throw new IllegalArgumentException(toState + " does not exist in the state machine");
         }
         Supplier<Boolean> transitionCondition = transitions.get(fromState);
