@@ -133,9 +133,11 @@ This builder is used to add a function that will run while the supplied conditio
 
 This builder is used to add a function that will run when the state is exited. You would use this to open a claw, or raise your arm for instance. It is useful to make sure something is set up correctly before the next step if you can't add it into the next onEnter.
 
-```.transition(state, ()-> condition)```
+```.transition(state, ()-> condition, int delay)```
 
-This builder is used to add a condition that will be checked to see if the state should be switched. If the condition is true, it will move on. You must add this builder at the end of the state method. Essentially the amount of states, must equal the amount of transitions.
+This builder is used to add a condition that will be checked to see if the state should be switched. If the condition is true, it will move on. You must add this builder at the end of the state method. Essentially the amount of states, must equal the amount of transitions. 
+
+The delay is taken in seconds and will be run during the transition into the next state. This is useful to pause the robot for a second before moving on to the next step.
 
 ```.stopRunning(state)```
 
