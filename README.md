@@ -1,9 +1,3 @@
----
-description: >-
-  Built for FTC robotics and Java programming for ease of autonomous
-  programming.
----
-
 # StateMachine
 
 [![](https://jitpack.io/v/GramGra07/StateMachineFTC.svg)](https://jitpack.io/#GramGra07/StateMachineFTC)
