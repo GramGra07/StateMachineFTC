@@ -1,8 +1,10 @@
-# StateMachine
+---
+description: >-
+  Built for FTC robotics and Java programming for ease of autonomous
+  programming.
+---
 
-[![](https://jitpack.io/v/GramGra07/StateMachineFTC.svg)](https://jitpack.io/#GramGra07/StateMachineFTC)
-
-## Introduction
+# StateMachineFTC
 
 TeleOp mode is pretty straightforward for new teams, you use the gamepad to control the robot. Autonomous is not as easy to program but it isn't all the much different than TeleOp, you just have to pre-program what movements you want the robot to perform. StateMachine can help with this and make it easier to understand.
 

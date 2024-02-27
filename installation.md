@@ -10,7 +10,7 @@ dependencies {
 }
 ```
 
-Replace version with the version here (in green) : [![](https://jitpack.io/v/GramGra07/StateMachineFTC.svg)](https://jitpack.io/#GramGra07/StateMachineFTC)
+Replace version with the latest version here : [https://jitpack.io/#GramGra07/StateMachineFTC](https://jitpack.io/#GramGra07/StateMachineFTC)
 
 In your `build.dependencies.gradle` file, add the following to the repositories:
 
