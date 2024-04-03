@@ -1,0 +1,222 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="org.gentrifiedApps.statemachineftc.test" >
+4
+5    <uses-sdk
+5-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:5:5-74
+6        android:minSdkVersion="24"
+6-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:5:15-41
+7        android:targetSdkVersion="28" />
+7-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:5:42-71
+8
+9    <instrumentation
+9-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:11:5-15:89
+10        android:name="androidx.test.runner.AndroidJUnitRunner"
+10-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:11:22-76
+11        android:functionalTest="false"
+11-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:14:22-52
+12        android:handleProfiling="false"
+12-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:13:22-53
+13        android:label="Tests for org.gentrifiedApps.statemachineftc.test"
+13-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:15:22-87
+14        android:targetPackage="org.gentrifiedApps.statemachineftc.test" />
+14-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:12:22-85
+15
+16    <uses-permission
+16-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:11:5-13:35
+17        android:name="android.permission.ACCESS_WIFI_STATE"
+17-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:12:9-60
+18        android:required="true" />
+18-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:13:9-32
+19    <uses-permission
+19-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:14:5-16:35
+20        android:name="android.permission.CHANGE_WIFI_STATE"
+20-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:15:9-60
+21        android:required="true" />
+21-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:16:9-32
+22    <uses-permission
+22-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:17:5-19:35
+23        android:name="android.permission.ACCESS_NETWORK_STATE"
+23-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:18:9-63
+24        android:required="true" />
+24-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:19:9-32
+25    <uses-permission
+25-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:20:5-22:35
+26        android:name="android.permission.CHANGE_NETWORK_STATE"
+26-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:21:9-63
+27        android:required="true" />
+27-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:22:9-32
+28    <uses-permission
+28-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:23:5-25:35
+29        android:name="android.permission.INTERNET"
+29-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:24:9-51
+30        android:required="true" /> <!-- Classified as Dangerous Permission in SDK 26 -->
+30-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:25:9-32
+31    <uses-permission
+31-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:28:5-30:35
+32        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+32-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:29:9-65
+33        android:required="true" /> <!-- Classified as Dangerous Permission in SDK 26 -->
+33-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:30:9-32
+34    <uses-permission
+34-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:32:5-34:35
+35        android:name="android.permission.READ_EXTERNAL_STORAGE"
+35-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:33:9-64
+36        android:required="true" /> <!-- Classified as System Permission in SDK 26 -->
+36-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:34:9-32
+37    <uses-permission
+37-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:37:5-39:35
+38        android:name="android.permission.WRITE_SETTINGS"
+38-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:38:9-57
+39        android:required="true" /> <!-- see AppUtil.setTimeZone() -->
+39-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:39:9-32
+40    <uses-permission
+40-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:42:5-44:35
+41        android:name="android.permission.SET_TIME_ZONE"
+41-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:43:9-56
+42        android:required="true" />
+42-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:44:9-32
+43    <!--
+44  Note: we suspect that this (android.permission.WAKE_LOCK) is no
+45  longer needed, but haven't yet found the time necessary to verify
+46  that assertion before removing it
+47    -->
+48    <uses-permission
+48-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:51:5-53:35
+49        android:name="android.permission.WAKE_LOCK"
+49-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:52:9-52
+50        android:required="true" />
+50-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:53:9-32
+51    <uses-permission android:name="android.permission.CAMERA" />
+51-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:54:5-65
+51-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:54:22-62
+52    <uses-permission
+52-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:55:5-57:35
+53        android:name="android.permission.ACCESS_COARSE_LOCATION"
+53-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:56:9-65
+54        android:required="true" />
+54-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:57:9-32
+55    <uses-permission
+55-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:58:5-60:35
+56        android:name="android.permission.ACCESS_FINE_LOCATION"
+56-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:59:9-63
+57        android:required="true" />
+57-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:60:9-32
+58    <uses-permission
+58-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:61:5-63:35
+59        android:name="android.permission.READ_PHONE_STATE"
+59-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:62:9-59
+60        android:required="true" />
+60-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:63:9-32
+61    <uses-permission android:name="android.permission.BLUETOOTH" />
+61-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:64:5-68
+61-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:64:22-65
+62    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+62-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:65:5-74
+62-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:65:22-71
+63    <uses-permission
+63-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:66:5-68:35
+64        android:name="com.revrobotics.permission.UPDATE_CONTROL_HUB"
+64-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:67:9-69
+65        android:required="true" />
+65-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:68:9-32
+66
+67    <uses-feature android:name="android.hardware.usb.accessory" />
+67-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:70:5-67
+67-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:70:19-64
+68    <uses-feature android:glEsVersion="0x00020000" />
+68-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:71:5-54
+68-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:71:19-51
+69    <!--
+70        NOTE: Any application that requests the CAMERA permission but does not
+71        declare any camera features with the <uses-feature> element will be
+72        assumed to use all camera features (auto-focus and flash). Thus, the
+73        application will not be compatible with devices that do not support
+74        all camera features. We use <uses-feature> to declare only the
+75        camera features that our application does need. For instance, if you
+76        request the CAMERA permission, but you do not need auto-focus or
+77        flash, then declare only the android.hardware.camera feature. The
+78        other camera features that you do not request will no longer be
+79        assumed as required.
+80    -->
+81    <uses-feature android:name="android.hardware.camera" />
+81-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:85:5-60
+81-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:85:19-57
+82
+83    <application
+83-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:7:5-9:19
+84        android:name="org.firstinspires.ftc.robotcore.internal.system.RobotApplication"
+84-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:87:18-97
+85        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+85-->[androidx.core:core:1.3.0] /Users/gradengentry/.gradle/caches/transforms-3/d1d17e9192fcb6f51d3cac76facb0c85/transformed/core-1.3.0/AndroidManifest.xml:24:18-86
+86        android:debuggable="true"
+87        android:extractNativeLibs="false" >
+88        <uses-library android:name="android.test.runner" />
+88-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:8:9-60
+88-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/manifest/androidTest/debug/tempFile1ProcessTestManifest11218733982730374428.xml:8:23-57
+89        <!--
+90    Needed to support sending logs from log viewer on Nougat and later.
+91    Note: DON'T need to shift meta-data to 'androidx' from 'android.support.FILE_PROVIDER_PATHS'
+92        -->
+93        <provider
+93-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:93:9-101:20
+94            android:name="androidx.core.content.FileProvider"
+94-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:94:13-62
+95            android:authorities="org.gentrifiedApps.statemachineftc.test.provider"
+95-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:95:13-60
+96            android:exported="false"
+96-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:96:13-37
+97            android:grantUriPermissions="true" >
+97-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:97:13-47
+98            <meta-data
+98-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:98:13-100:63
+99                android:name="android.support.FILE_PROVIDER_PATHS"
+99-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:99:17-67
+100                android:resource="@xml/file_provider_paths" />
+100-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:100:17-60
+101        </provider> <!-- Service that keeps desktop folders up to date with respect to actual phone file system contents -->
+102        <service
+102-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:104:9-106:38
+103            android:name="org.firstinspires.ftc.robotcore.internal.files.MediaTransferProtocolMonitorService"
+103-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:105:13-110
+104            android:enabled="true" />
+104-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:106:13-35
+105
+106        <meta-data
+106-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:108:9-110:41
+107            android:name="autoStartService.org.firstinspires.ftc.robotcore.internal.files.MediaTransferProtocolMonitorService"
+107-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:109:13-127
+108            android:value="BOTH|1000" /> <!-- Service that provides build services for OnBotJava -->
+108-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:110:13-38
+109        <service
+109-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:113:9-115:38
+110            android:name="org.firstinspires.ftc.onbotjava.OnBotJavaService"
+110-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:114:13-76
+111            android:enabled="true" />
+111-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:115:13-35
+112
+113        <meta-data
+113-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:117:9-119:39
+114            android:name="autoStartService.org.firstinspires.ftc.onbotjava.OnBotJavaService"
+114-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:118:13-93
+115            android:value="RC|2000" />
+115-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:119:13-36
+116
+117        <receiver
+117-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:121:9-128:20
+118            android:name="org.firstinspires.ftc.robotserver.internal.webserver.controlhubupdater.ChUpdaterCommManager$ChUpdaterBroadcastReceiver"
+118-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:122:13-146
+119            android:exported="true"
+119-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:123:13-36
+120            android:permission="android.permission.INSTALL_PACKAGES" >
+120-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:124:13-69
+121            <intent-filter>
+121-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:125:13-127:29
+122                <action android:name="com.revrobotics.controlhubupdater.broadcast.RESULT_BROADCAST" />
+122-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:126:17-103
+122-->[org.firstinspires.ftc:RobotCore:9.0.1] /Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/AndroidManifest.xml:126:25-100
+123            </intent-filter>
+124        </receiver>
+125    </application>
+126
+127</manifest>

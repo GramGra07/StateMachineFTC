@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml:2:13-3:63
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml:2:13-3:63
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml:2:13-3:63
+	package
+		ADDED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml:3:16-60
+		INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+		INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+	xmlns:android
+		ADDED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml:2:23-81
+uses-sdk
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml reason: use-sdk injection requested
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+	android:targetSdkVersion
+		INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+		ADDED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+		INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+	android:minSdkVersion
+		INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+		ADDED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml
+		INJECTED from /Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest7016552309105343642.xml

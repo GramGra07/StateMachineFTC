@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "org.gentrifiedApps.statemachineftc-merged_res-8:/layout-v21/notification_template_custom_big.xml",
+        "source": "org.gentrifiedApps.statemachineftc-core-1.3.0-3:/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "org.gentrifiedApps.statemachineftc-merged_res-8:/layout-v21/notification_action_tombstone.xml",
+        "source": "org.gentrifiedApps.statemachineftc-core-1.3.0-3:/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "org.gentrifiedApps.statemachineftc-merged_res-8:/layout-v21/notification_template_icon_group.xml",
+        "source": "org.gentrifiedApps.statemachineftc-core-1.3.0-3:/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "org.gentrifiedApps.statemachineftc-merged_res-8:/layout-v21/notification_action.xml",
+        "source": "org.gentrifiedApps.statemachineftc-core-1.3.0-3:/layout-v21/notification_action.xml"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "org.gentrifiedApps.statemachineftc-merged_res-8:/layout-watch-v20/abc_alert_dialog_title_material.xml",
+        "source": "org.gentrifiedApps.statemachineftc-appcompat-1.2.0-2:/layout-watch-v20/abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "org.gentrifiedApps.statemachineftc-merged_res-8:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml",
+        "source": "org.gentrifiedApps.statemachineftc-appcompat-1.2.0-2:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml"
+    }
+]

@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "org.gentrifiedApps.statemachineftc-merged_res-8:/values-v14/values-v14.xml",
+            "map": [
+                {
+                    "source": "/Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/res/values-v14/values-v14.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "152"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "org.gentrifiedApps.statemachineftc-mergeReleaseResources-6:/values-v14/values-v14.xml",
+            "map": [
+                {
+                    "source": "/Users/gradengentry/.gradle/caches/transforms-3/2a66865ffc76283b99c31e86126b4366/transformed/RobotCore-9.0.1/res/values-v14/values-v14.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "4",
+                        "endColumns": "12",
+                        "endOffsets": "152"
+                    }
+                }
+            ]
+        }
+    ]
+}

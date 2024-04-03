@@ -1,0 +1,74 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.gentrifiedApps",
+    "module": "gentrifiedApps",
+    "version": "v1.0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "gentrifiedApps-v1.0.1.aar",
+          "url": "gentrifiedApps-v1.0.1.aar",
+          "size": 32970,
+          "sha512": "e79a7aaac5f77ccb9c3a51e7dea46c825c2e0bb18661891a395794db4aded54cc21642cb08af5e56cf90cb173c35b0ac4d098b18c7e96d07f1fa75d244408310",
+          "sha256": "518e766e81ae0327a2b49a1ed02a17d387c19492ee2bcf4c1872d0654c19b5a1",
+          "sha1": "67ac09e655fffd532645690cfe2b01bf4d451b8c",
+          "md5": "10e62e72b098be740a4f09af761ecd18"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.junit.jupiter",
+          "module": "junit-jupiter",
+          "version": {
+            "requires": "5.8.1"
+          }
+        },
+        {
+          "group": "org.firstinspires.ftc",
+          "module": "RobotCore",
+          "version": {
+            "requires": "9.0.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "gentrifiedApps-v1.0.1.aar",
+          "url": "gentrifiedApps-v1.0.1.aar",
+          "size": 32970,
+          "sha512": "e79a7aaac5f77ccb9c3a51e7dea46c825c2e0bb18661891a395794db4aded54cc21642cb08af5e56cf90cb173c35b0ac4d098b18c7e96d07f1fa75d244408310",
+          "sha256": "518e766e81ae0327a2b49a1ed02a17d387c19492ee2bcf4c1872d0654c19b5a1",
+          "sha1": "67ac09e655fffd532645690cfe2b01bf4d451b8c",
+          "md5": "10e62e72b098be740a4f09af761ecd18"
+        }
+      ]
+    }
+  ]
+}
