@@ -29,3 +29,4 @@ build/intermediates/javac/release/classes/org/gentrifiedApps/statemachineftc/Sta
 build/intermediates/javac/release/classes/tests/StateMachineTestCases$LargeStates.class
 build/intermediates/javac/release/classes/tests/StateMachineTestCases$States.class
 build/intermediates/javac/release/classes/tests/StateMachineTestCases.class
+/.gradle
