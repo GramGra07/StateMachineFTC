@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="24"
-6-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest11121576163084389438.xml
+6-->/Users/gradengentry/Downloads/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7491562204287475936.xml
 7        android:targetSdkVersion="28" />
-7-->/Users/gradengentry/Desktop/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest11121576163084389438.xml
+7-->/Users/gradengentry/Downloads/Repos/StateMachineFTC/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7491562204287475936.xml
 8
 9</manifest>

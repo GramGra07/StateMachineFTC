@@ -69,8 +69,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-    implementation 'org.firstinspires.ftc:RobotCore:9.0.1'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.junit.platform:junit-platform-launcher:1.8.1'
+    implementation 'org.firstinspires.ftc:RobotCore:10.1.0'
 }
 
 afterEvaluate {

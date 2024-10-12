@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-class StateMachineTestCases {
+public class StateMachineTestCases {
 
     private StateMachine<States> stateMachine;
 
@@ -1556,7 +1556,7 @@ class StateMachineTestCases {
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"));
         for (int i = 0; i < 100; i++) {
             int random = new Random().nextInt(1000);
-            assertThrows(IllegalArgumentException.class, () -> builder.transition(States.STATE1, () -> true, -random));
+            assertThrows(IllegalArgumentException.class, () -> builder.transition(States.STATE1, () -> true, -1*random));
         }
 
         System.out.println("Delay error tested successfully");
