@@ -278,4 +278,35 @@ public class ParallelRunSMTestCases {
         assertFalse(map[2]);
         assertFalse(stateMachine.isRunning());
     }
+    // mismatch states and onenters
+    @Test
+    public void testMismatchStatesAndOnEnters() {
+        ParallelRunSM.Builder<States> builder = new ParallelRunSM.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .state(States.STATE2)
+                .stopRunning(States.STOP,()->true);
+        try {
+            ParallelRunSM<States> stateMachine = builder.build(false,100);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Not all states have corresponding onEnter commands", e.getMessage());
+        }
+    }
+    // test a negative timeout
+    @Test
+    public void testNegativeTimeout() {
+        ParallelRunSM.Builder<States> builder = new ParallelRunSM.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .stopRunning(States.STOP,()->true);
+        try {
+            ParallelRunSM<States> stateMachine = builder.build(false,-100);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Timeout must be a positive integer", e.getMessage());
+        }
+    }
 }

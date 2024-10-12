@@ -1,9 +1,5 @@
 package org.gentrifiedApps.statemachineftc;
 
-import android.util.Pair;
-
-import org.junit.jupiter.api.DisplayNameGenerator;
-
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,12 +79,24 @@ public class ParallelRunSM<T extends Enum<T>> {
 
         public ParallelRunSM<T> build(Boolean useTimeout, Integer timeout) {
             this.timeout = new AbstractMap.SimpleEntry<>(useTimeout, timeout);
+
+            if (timeout < 0) {
+                throw new IllegalArgumentException("Timeout must be a positive integer");
+            }
+
             if (states == null || states.isEmpty()) {
                 throw new IllegalArgumentException("States cannot be null or empty");
             }
 
             if (new HashSet<>(states).size() != states.size()) {
                 throw new IllegalArgumentException("States cannot have duplicates");
+            }
+
+            if (onEnterCommands.isEmpty()) {
+                throw new IllegalArgumentException("States must have corresponding onEnter commands");
+            }
+            if (onEnterCommands.size() != states.size()) {
+                throw new IllegalArgumentException("Not all states have corresponding onEnter commands");
             }
 
             if (onEnterCommands.get(states.get(0)) == null) {
