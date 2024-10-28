@@ -31,3 +31,4 @@ build/intermediates/javac/release/classes/tests/StateMachineTestCases$States.cla
 build/intermediates/javac/release/classes/tests/StateMachineTestCases.class
 /.gradle
 .idea/git_toolbox_prj.xml
+/.gradle

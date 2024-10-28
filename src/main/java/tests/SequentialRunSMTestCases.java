@@ -69,7 +69,6 @@ class SequentialRunSMTestCases {
     void testTransition(){
         System.out.println("Testing transition with holdup");
         SequentialRunSM.Builder<States> builder = new SequentialRunSM.Builder<>();
-        AtomicInteger count = new AtomicInteger(0);
         builder.state(States.STATE1).onEnter(States.STATE1, () -> {
             System.out.println("Entering STATE1");
         }).transition(States.STATE1, () -> {
