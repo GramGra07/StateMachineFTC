@@ -96,6 +96,7 @@ class SequentialRunSMTestCases {
         assertNotEquals(States.STATE3, srsmb.getCurrentState());
         assertTrue(srsmb.isRunning());
         assertNotEquals(States.STOP, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
 
         System.out.println("States updated successfully");
     }
