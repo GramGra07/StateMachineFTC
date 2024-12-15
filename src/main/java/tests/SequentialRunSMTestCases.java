@@ -64,6 +64,91 @@ class SequentialRunSMTestCases {
 
         System.out.println("States updated successfully");
     }
+    enum AutoLift {
+        extend_pivot,
+        hook1st,
+        lift1st,
+        pivotBack,
+        sit1st,
+        extend2nd,
+        hook2nd,
+        lift2nd,
+        pivot2nd,
+        sit2nd,
+        collapse,
+        stop
+    }
+
+    @Test
+    void testLiftSequence() {
+        SequentialRunSM.Builder<AutoLift> builder = new SequentialRunSM.Builder<>();
+        builder.state(AutoLift.extend_pivot)
+                .onEnter(AutoLift.extend_pivot, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.extend_pivot, () -> true)
+                .state(AutoLift.hook1st)
+                .onEnter(AutoLift.hook1st, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.hook1st, () -> true)
+                .state(AutoLift.lift1st)
+                .onEnter(AutoLift.lift1st, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.lift1st, () -> true)
+                .state(AutoLift.pivotBack)
+                .onEnter(AutoLift.pivotBack, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.pivotBack, () -> true)
+                .state(AutoLift.sit1st)
+                .onEnter(AutoLift.sit1st, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.sit1st, () -> true)
+                .state(AutoLift.extend2nd)
+                .onEnter(AutoLift.extend2nd, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.extend2nd, () -> true)
+                .state(AutoLift.hook2nd)
+                .onEnter(AutoLift.hook2nd, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.hook2nd, () -> true)
+                .state(AutoLift.lift2nd)
+                .onEnter(AutoLift.lift2nd, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.lift2nd, () -> true)
+                .state(AutoLift.pivot2nd)
+                .onEnter(AutoLift.pivot2nd, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.pivot2nd, () -> true)
+                .state(AutoLift.sit2nd)
+                .onEnter(AutoLift.sit2nd, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.sit2nd, () -> true)
+                .state(AutoLift.collapse)
+                .onEnter(AutoLift.collapse, () -> {
+                    // Simplified actions
+                })
+                .transition(AutoLift.collapse, () -> true)
+                .stopRunning(AutoLift.stop);
+
+        SequentialRunSM<AutoLift> liftSequence = builder.build();
+        liftSequence.start();
+
+        // Add assertions to verify the state transitions and final state
+        assertTrue(liftSequence.isRunning());
+        while (liftSequence.isRunning()) {
+            liftSequence.update();
+        }
+        assertEquals(AutoLift.stop, liftSequence.getCurrentState());
+    }
     // test transition with a holdup
     @Test
     void testTransition(){
