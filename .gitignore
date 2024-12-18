@@ -33,3 +33,4 @@ build/intermediates/javac/release/classes/tests/StateMachineTestCases.class
 .idea/git_toolbox_prj.xml
 /.gradle
 .gradle/7.5/fileHashes/resourceHashesCache.bin
+/.idea
