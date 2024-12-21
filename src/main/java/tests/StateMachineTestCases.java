@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.gentrifiedApps.statemachineftc.StateMachine;
@@ -1561,4 +1562,30 @@ public class StateMachineTestCases {
 
         System.out.println("Delay error tested successfully");
     }
+
+    @Test
+    void testIsValidTransitionSecond() {
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> true, 0)
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> false, 0)
+                .stopRunning(States.STOP);
+        StateMachine<States> stateMachine = builder.build();
+        stateMachine.start();
+
+        // Test valid transition
+        assertTrue(stateMachine.isValidTransition(States.STATE1, States.STATE2));
+
+        // Test transition to itself
+        assertThrowsExactly(IllegalArgumentException.class, () -> stateMachine.isValidTransition(States.STATE1, States.STATE1),"Cannot transition to itself");
+
+        // Test transition from non-existent state
+        assertThrows(IllegalArgumentException.class, () -> stateMachine.isValidTransition(States.STATE3, States.STATE2),"STATE 3 does not exist in the state machine");
+
+        // Test transition to non-existent state
+        assertThrows(IllegalArgumentException.class, () -> stateMachine.isValidTransition(States.STATE1, States.STATE3));
+}
 }

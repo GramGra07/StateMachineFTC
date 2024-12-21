@@ -27,7 +27,7 @@ public class StateMachine<T extends Enum<T>> {
     }
 
     public boolean mainLoop(LinearOpMode opMode) {
-        return opMode.opModeIsActive() && isRunning();
+        return opMode.opModeIsActive() && isRunning() && !opMode.isStopRequested();
     }
 
     public boolean isRunning() {
@@ -201,7 +201,7 @@ public class StateMachine<T extends Enum<T>> {
                 T nextState = states.get(1);
                 // Check if the transition is valid
                 if (!isValidTransition(currentState, nextState)) {
-                    throw new IllegalStateException("Invalid transition");
+                    isValidTransition(currentState, nextState);
                 }
                 StateChangeCallback onExitAction = onExitCommands.get(currentState);
                 if (onExitAction != null) {
