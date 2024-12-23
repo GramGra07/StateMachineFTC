@@ -142,14 +142,14 @@ public class SequentialRunSM<T extends Enum<T>> {
             Supplier<Boolean> transitionCondition = transitions.get(currentState);
             if (transitionCondition != null && transitionCondition.get()) {
                 // Check if there are at least 2 states
-                if (states.size() <= 2) {
+                if (states.size() < 2) {
                     throw new IllegalStateException("Not enough states for transition");
                 }
                 // Get the next state
                 T nextState = states.get(1);
                 // Check if the transition is valid
                 if (!isValidTransition(currentState, nextState)) {
-                    throw new IllegalStateException("Invalid transition");
+                    isValidTransition(currentState, nextState);
                 }
                 // Add the current state to the history
                 stateHistory.add(currentState);

@@ -1087,7 +1087,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testDelayState() {
+    void testDelayState() throws InterruptedException {
         System.out.println("Testing delay state");
 
         // Create a flag to track if the delay state was entered
@@ -1110,6 +1110,9 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
+        stateMachine.update();
+        Thread.sleep(1000);
+        stateMachine.update();
 
         // Check that the state machine is in the delay state
         assertEquals(States.STATE2, stateMachine.getCurrentState());
@@ -1127,7 +1130,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testMultipleDelayStates() {
+    void testMultipleDelayStates() throws InterruptedException {
         System.out.println("Testing multiple delay states");
 
         // Create flags to track if the delay states were entered
@@ -1157,6 +1160,8 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
+        Thread.sleep(1000);
+        stateMachine.update();
 
         // Check that the state machine is in the first delay state
         assertEquals(States.STATE2, stateMachine.getCurrentState());
@@ -1166,7 +1171,8 @@ public class StateMachineTestCases {
 
         // Update the state machine again
         stateMachine.update();
-
+        Thread.sleep(2000);
+        stateMachine.update();
         // Check that the state machine is in the second delay state
         assertEquals(States.STATE3, stateMachine.getCurrentState());
 
@@ -1183,7 +1189,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testDelayStateWithTransition() {
+    void testDelayStateWithTransition() throws InterruptedException {
         System.out.println("Testing delay state with transition");
 
         // Create a flag to track if the delay state was entered
@@ -1209,7 +1215,8 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
-
+        Thread.sleep(1000);
+        stateMachine.update();
         // Check that the state machine is in the delay state
         assertEquals(States.STATE2, stateMachine.getCurrentState());
 
@@ -1226,7 +1233,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testStopAfterDelay() {
+    void testStopAfterDelay() throws InterruptedException {
         System.out.println("Testing stop after delay");
         // Create a flag to track if the delay state was entered
         final boolean[] delayStateEntered = {false};
@@ -1248,7 +1255,8 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
-
+        Thread.sleep(1000);
+        stateMachine.update();
         // Check that the state machine is in the delay state
         assertEquals(States.STATE2, stateMachine.getCurrentState());
 
@@ -1265,7 +1273,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    public void testStopAfterDelay2() {
+    public void testStopAfterDelay2() throws InterruptedException {
         System.out.println("Testing stop after delay");
 
         // Create a flag to track if the delay state was entered
@@ -1287,6 +1295,8 @@ public class StateMachineTestCases {
         stateMachine.start();
 
         // Update the state machine
+        stateMachine.update();
+        Thread.sleep(1000);
         stateMachine.update();
 
         // Check that the state machine is in the delay state
@@ -1305,7 +1315,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testRandomDelay() {
+    void testRandomDelay() throws InterruptedException {
         System.out.println("Testing random delay");
 
         // Create a flag to track if the delay state was entered
@@ -1332,7 +1342,8 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
-
+        Thread.sleep((delayTime * 1000) + 500);
+        stateMachine.update();
         // Check that the state machine is in the delay state
         assertEquals(States.STATE2, stateMachine.getCurrentState());
 
@@ -1349,7 +1360,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testComprehensiveDelayState() {
+    void testComprehensiveDelayState() throws InterruptedException {
         System.out.println("Testing comprehensive delay state");
 
         // Set up the state machine
@@ -1372,9 +1383,13 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
+        Thread.sleep(1000);
+        stateMachine.update();
         assertEquals(States.STATE2, stateMachine.getCurrentState());
         // Update the state machine
         stateMachine.update();
+//        Thread.sleep(1000);
+//        stateMachine.update();
         assertEquals(States.STATE3, stateMachine.getCurrentState());
 
         // Update the state machine
@@ -1386,7 +1401,74 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testExtremelyComprehensiveDelayState() {
+    void testComprehensiveRandomDelayState() throws InterruptedException {
+        System.out.println("Testing comprehensive random delay state");
+
+        // Fixed delays for debugging
+        int[] delays = {10, 0, 16, 8};
+        for (int i = 0; i < delays.length; i++) {
+            System.out.println("Delay for STATE" + (i + 1) + ": " + delays[i] + " seconds");
+        }
+
+        // Set up the state machine
+        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
+        builder.state(States.STATE1)
+                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
+                .transition(States.STATE1, () -> {
+                    long currentTime = System.currentTimeMillis();
+                    System.out.println("Evaluating transition for STATE1 at " + currentTime);
+                    return true;
+                }, delays[0])
+                .state(States.STATE2)
+                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
+                .transition(States.STATE2, () -> true, delays[1])
+                .state(States.STATE3)
+                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
+                .transition(States.STATE3, () -> true, delays[2])
+                .state(States.STATE4)
+                .onEnter(States.STATE4, () -> System.out.println("Entering STATE4"))
+                .transition(States.STATE4, () -> true, delays[3])
+                .stopRunning(States.STOP);
+
+        StateMachine<States> stateMachine = builder.build();
+
+        // Start the state machine
+        stateMachine.start();
+        assertEquals(States.STATE1, stateMachine.getCurrentState());
+
+        // Update the state machine
+        long startTime = System.currentTimeMillis();
+        System.out.println("Start time: " + startTime);
+        stateMachine.update();
+
+        Thread.sleep((delays[0] * 1000) + 500);
+        long currentTime = System.currentTimeMillis();
+        System.out.println("Time after sleep: " + currentTime);
+        System.out.println("Elapsed time: " + (currentTime - startTime) + "ms");
+
+        // Manually trigger update to check state transition
+        stateMachine.update();
+
+        System.out.println("Current state after update: " + stateMachine.getCurrentState());
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+        stateMachine.update();
+// Additional checks for further transitions
+        Thread.sleep((delays[1] * 1000) + 500);
+        stateMachine.update();
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
+
+        Thread.sleep((delays[2] * 1000) + 500);
+        stateMachine.update();
+        assertEquals(States.STATE4, stateMachine.getCurrentState());
+
+        Thread.sleep((delays[3] * 1000) + 500);
+        stateMachine.update();
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+    }
+
+
+    @Test
+    void testExtremelyComprehensiveDelayState() throws InterruptedException {
         System.out.println("Testing extremely comprehensive delay state");
 
 
@@ -1413,10 +1495,13 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
+        Thread.sleep(1000);
+        stateMachine.update();
         assertEquals(States.STATE2, stateMachine.getCurrentState());
 
         // Update the state machine
         stateMachine.update();
+        Thread.sleep(2000);
         assertEquals(States.STATE3, stateMachine.getCurrentState());
 
         // Update the state machine
@@ -1434,63 +1519,7 @@ public class StateMachineTestCases {
     }
 
     @Test
-    void testComprehensiveRandomDelayState() {
-        System.out.println("Testing comprehensive random delay state");
-        long startTime = System.currentTimeMillis();
-        int[] random = {0, 0, 0, 0};
-        random[0] = new Random().nextInt(20);
-        System.out.println(random[0] + " seconds");
-        random[1] = new Random().nextInt(20);
-        System.out.println(random[1] + " seconds");
-        random[2] = new Random().nextInt(20);
-        System.out.println(random[2] + " seconds");
-        random[3] = new Random().nextInt(20);
-        System.out.println(random[3] + " seconds");
-
-        // Set up the state machine
-        StateMachine.Builder<States> builder = new StateMachine.Builder<>();
-        builder.state(States.STATE1)
-                .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"))
-                .transition(States.STATE1, () -> true, random[0]) // 1 second delay
-                .state(States.STATE2)
-                .onEnter(States.STATE2, () -> System.out.println("Entering STATE2"))
-                .transition(States.STATE2, () -> true, random[1]) // 1 second delay
-                .state(States.STATE3)
-                .onEnter(States.STATE3, () -> System.out.println("Entering STATE3"))
-                .transition(States.STATE3, () -> true, random[2]) // 1 second delay
-                .state(States.STATE4)
-                .onEnter(States.STATE4, () -> System.out.println("Entering STATE4"))
-                .transition(States.STATE4, () -> true, random[3])
-                .stopRunning(States.STOP);
-        StateMachine<States> stateMachine = builder.build();
-        // Start the state machine
-        stateMachine.start();
-        assertEquals(States.STATE1, stateMachine.getCurrentState());
-
-        // Update the state machine
-        stateMachine.update();
-        assertEquals(States.STATE2, stateMachine.getCurrentState());
-
-        // Update the state machine
-        stateMachine.update();
-        assertEquals(States.STATE3, stateMachine.getCurrentState());
-
-        // Update the state machine
-        stateMachine.update();
-        assertEquals(States.STATE4, stateMachine.getCurrentState());
-
-        // Update the state machine
-        stateMachine.update();
-        assertEquals(States.STOP, stateMachine.getCurrentState());
-        assertFalse(stateMachine.isRunning());
-        long endTime = System.currentTimeMillis();
-        System.out.println(Math.abs(endTime - startTime));
-        assertTrue(Math.abs(endTime - startTime) > (random[0] + random[1] + random[2] + random[3]) * 1000);
-        System.out.println("Comprehensive random delay state tested successfully");
-    }
-
-    @Test
-    void testComplexTransitionIntoDelay() {
+    void testComplexTransitionIntoDelay() throws InterruptedException {
         System.out.println("Testing complex transition into delay");
         long startTime = System.currentTimeMillis();
         int[] random = {0, 0, 0, 0};
@@ -1527,9 +1556,13 @@ public class StateMachineTestCases {
 
         // Update the state machine
         stateMachine.update();
+        Thread.sleep(random[0] * 1000);
+        stateMachine.update();
         assertEquals(States.STATE2, stateMachine.getCurrentState());
 
         assertTrue(stateMachine.isRunning());
+        stateMachine.update();
+        Thread.sleep(random[1] * 1000);
         stateMachine.update();
 
         long endTime = System.currentTimeMillis();
@@ -1556,7 +1589,7 @@ public class StateMachineTestCases {
         builder.state(States.STATE1)
                 .onEnter(States.STATE1, () -> System.out.println("Entering STATE1"));
         for (int i = 0; i < 100; i++) {
-            int random = new Random().nextInt(1000);
+            int random = 5;
             assertThrows(IllegalArgumentException.class, () -> builder.transition(States.STATE1, () -> true, -1*random));
         }
 

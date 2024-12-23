@@ -181,6 +181,7 @@ public class StateMachine<T extends Enum<T>> {
         transitionDelayTimes.clear();
     }
 
+    private double startTime = 0;
     public boolean update() {
         if (!states.isEmpty()) {
             currentState = states.get(0);
@@ -210,22 +211,38 @@ public class StateMachine<T extends Enum<T>> {
                 // Delay the transition
                 double delayTime = transitionDelayTimes.get(currentState);
                 if (delayTime > 0) {
-                    try {
-                        Thread.sleep((long) (delayTime * 1000));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if (startTime == 0) {
+                        startTime = System.currentTimeMillis();
                     }
-                }
-                // Add the current state to the history
-                stateHistory.add(currentState);
-                // Remove the current state
-                states.remove(0);
-                // If there are more states, enter the next one
-                if (!states.isEmpty()) {
-                    currentState = states.get(0);
-                    StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
-                    if (onEnterAction != null) {
-                        onEnterAction.onStateChange();
+                    double elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+                    if (elapsedTime < delayTime) {
+                        return false;
+                    } else {
+                        // Add the current state to the history
+                        stateHistory.add(currentState);
+                        // Remove the current state
+                        states.remove(0);
+                        // If there are more states, enter the next one
+                        if (!states.isEmpty()) {
+                            currentState = states.get(0);
+                            StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
+                            if (onEnterAction != null) {
+                                onEnterAction.onStateChange();
+                            }
+                        }
+                    }
+                } else {
+                    // Add the current state to the history
+                    stateHistory.add(currentState);
+                    // Remove the current state
+                    states.remove(0);
+                    // If there are more states, enter the next one
+                    if (!states.isEmpty()) {
+                        currentState = states.get(0);
+                        StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
+                        if (onEnterAction != null) {
+                            onEnterAction.onStateChange();
+                        }
                     }
                 }
             } else {
