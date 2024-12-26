@@ -16,9 +16,9 @@ public class SequentialRunSM<T extends Enum<T>> {
     private List<T> stateHistory;
     private boolean isStarted = false;
     private boolean isRunning = true;
-    private boolean shouldRestart = false;
+    private boolean shouldRestart = true;
     private Map<T, StateChangeCallback> sustainOnEnter;
-    private List<T> sustainStates;
+    public List<T> sustainStates;
     private Map<T, Supplier<Boolean>> sustainTransitions;
 
     public T getCurrentState() {
@@ -39,6 +39,10 @@ public class SequentialRunSM<T extends Enum<T>> {
         this.transitions = builder.transitions;
         this.currentState = null;
         this.stateHistory = new ArrayList<>();
+
+        this.sustainStates = new ArrayList<>(builder.states);
+        this.sustainTransitions = new HashMap<>(builder.transitions);
+        this.sustainOnEnter = new HashMap<>(builder.onEnterCommands);
     }
 
     public static class Builder<T extends Enum<T>> {
@@ -125,9 +129,6 @@ public class SequentialRunSM<T extends Enum<T>> {
         if (isStarted) {
             throw new IllegalStateException("StateMachine has already been started");
         }
-        sustainStates = states;
-        sustainTransitions = transitions;
-        sustainOnEnter = onEnterCommands;
         isStarted = true;
         shouldRestart = true;
         if (!states.isEmpty()) {
@@ -153,7 +154,7 @@ public class SequentialRunSM<T extends Enum<T>> {
     public void restartAtBeginning() {
         if (shouldRestart) {
             stateHistory.clear();
-            isRunning = false;
+            isRunning = true;
             isStarted = false;
             states = sustainStates;
             transitions = sustainTransitions;

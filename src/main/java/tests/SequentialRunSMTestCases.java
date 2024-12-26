@@ -352,4 +352,82 @@ class SequentialRunSMTestCases {
 
         System.out.println("Comprehensive test passed");
     }
+
+    @Test
+    void testRestartAtBeginning() {
+        System.out.println("Testing restartAtBeginning");
+        SequentialRunSM.Builder<States> builder = new SequentialRunSM.Builder<>();
+        builder.state(States.STATE1).onEnter(States.STATE1, () -> {
+            System.out.println("Entering STATE1");
+        }).transition(States.STATE1, () -> {
+            return true;
+        }).state(States.STATE2).onEnter(States.STATE2, () -> {
+            System.out.println("Entering STATE2");
+        }).transition(States.STATE2, () -> {
+            System.out.println("Transitioning from STATE2 to STATE3");
+            return true;
+        }).state(States.STATE3).onEnter(States.STATE3, () -> {
+            System.out.println("Entering STATE3");
+        }).transition(States.STATE3, () -> {
+            System.out.println("Transitioning from STATE3 to STOP");
+            return true;
+        }).stopRunning(States.STOP);
+
+        SequentialRunSM<States> srsmb = builder.build();
+        srsmb.start();
+        assertTrue(srsmb.isRunning());
+        assertTrue(srsmb.update());
+        assertEquals(States.STATE2, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertEquals(States.STATE3, srsmb.getCurrentState());
+        assertFalse(srsmb.update());
+        assertEquals(States.STOP, srsmb.getCurrentState());
+        assertFalse(srsmb.isRunning());
+
+        // Restart the state machine
+        srsmb.restartAtBeginning();
+        System.out.println(srsmb.sustainStates);
+        srsmb.start();
+        assertTrue(srsmb.isRunning());
+        assertEquals(States.STATE1, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertEquals(States.STATE2, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertEquals(States.STATE3, srsmb.getCurrentState());
+        assertFalse(srsmb.update());
+        assertEquals(States.STOP, srsmb.getCurrentState());
+        assertFalse(srsmb.isRunning());
+
+        System.out.println("Restart at beginning tested successfully");
+    }
+
+    @Test
+    void testStateMachineRunning() {
+        System.out.println("Testing state machine running status");
+        SequentialRunSM.Builder<States> builder = new SequentialRunSM.Builder<>();
+        builder.state(States.STATE1).onEnter(States.STATE1, () -> {
+            System.out.println("Entering STATE1");
+        }).transition(States.STATE1, () -> {
+            return true;
+        }).state(States.STATE2).onEnter(States.STATE2, () -> {
+            System.out.println("Entering STATE2");
+        }).transition(States.STATE2, () -> {
+            return true;
+        }).state(States.STATE3).onEnter(States.STATE3, () -> {
+            System.out.println("Entering STATE3");
+        }).transition(States.STATE3, () -> {
+            return true;
+        }).stopRunning(States.STOP);
+
+        SequentialRunSM<States> stateMachine = builder.build();
+        stateMachine.start();
+        assertTrue(stateMachine.isRunning());
+        assertTrue(stateMachine.update());
+        assertEquals(States.STATE2, stateMachine.getCurrentState());
+        assertTrue(stateMachine.update());
+        assertEquals(States.STATE3, stateMachine.getCurrentState());
+        assertFalse(stateMachine.update());
+        assertEquals(States.STOP, stateMachine.getCurrentState());
+        assertFalse(stateMachine.isRunning());
+    }
 }
