@@ -7,15 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.gentrifiedApps.statemachineftc.SequentialRunSM;
-import org.gentrifiedApps.statemachineftc.StateMachine;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
 
 class SequentialRunSMTestCases {
 
@@ -58,7 +54,7 @@ class SequentialRunSMTestCases {
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
+        assertFalse(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
         assertFalse(srsmb.isRunning());
 
@@ -212,7 +208,7 @@ class SequentialRunSMTestCases {
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
+        assertFalse(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
         assertFalse(srsmb.isRunning());
     }
@@ -281,7 +277,7 @@ class SequentialRunSMTestCases {
         assertFalse(commandExecuted[0]);
         assertTrue(commandExecuted[1]);
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
+        assertFalse(srsmb.update());
         assertFalse(commandExecuted[0]);
         assertFalse(commandExecuted[1]);
         assertEquals(States.STOP, srsmb.getCurrentState());
@@ -350,7 +346,7 @@ class SequentialRunSMTestCases {
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
+        assertFalse(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
         assertFalse(srsmb.isRunning());
 

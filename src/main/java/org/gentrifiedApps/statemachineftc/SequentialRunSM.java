@@ -16,13 +16,19 @@ public class SequentialRunSM<T extends Enum<T>> {
     private List<T> stateHistory;
     private boolean isStarted = false;
     private boolean isRunning = true;
+    private boolean shouldRestart = false;
+    private Map<T, StateChangeCallback> sustainOnEnter;
+    private List<T> sustainStates;
+    private Map<T, Supplier<Boolean>> sustainTransitions;
 
     public T getCurrentState() {
         return currentState;
     }
+
     public boolean isRunning() {
         return isRunning;
     }
+
     public boolean isStarted() {
         return isStarted;
     }
@@ -34,6 +40,7 @@ public class SequentialRunSM<T extends Enum<T>> {
         this.currentState = null;
         this.stateHistory = new ArrayList<>();
     }
+
     public static class Builder<T extends Enum<T>> {
         private List<T> states;
         private Map<T, StateChangeCallback> onEnterCommands;
@@ -113,11 +120,16 @@ public class SequentialRunSM<T extends Enum<T>> {
             return this.machine;
         }
     }
+
     public void start() {
         if (isStarted) {
             throw new IllegalStateException("StateMachine has already been started");
         }
+        sustainStates = states;
+        sustainTransitions = transitions;
+        sustainOnEnter = onEnterCommands;
         isStarted = true;
+        shouldRestart = true;
         if (!states.isEmpty()) {
             currentState = states.get(0);
             StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
@@ -126,6 +138,7 @@ public class SequentialRunSM<T extends Enum<T>> {
             }
         }
     }
+
     public void stop() {
         if (!isRunning) {
             throw new IllegalStateException("StateMachine is already stopped");
@@ -136,39 +149,40 @@ public class SequentialRunSM<T extends Enum<T>> {
         onEnterCommands.clear();
         transitions.clear();
     }
+
+    public void restartAtBeginning() {
+        if (shouldRestart) {
+            stateHistory.clear();
+            isRunning = false;
+            isStarted = false;
+            states = sustainStates;
+            transitions = sustainTransitions;
+            onEnterCommands = sustainOnEnter;
+            shouldRestart = false;
+        }
+    }
+
     public boolean update() {
         if (!states.isEmpty()) {
             currentState = states.get(0);
             Supplier<Boolean> transitionCondition = transitions.get(currentState);
             if (transitionCondition != null && transitionCondition.get()) {
-                // Check if there are at least 2 states
-                if (states.size() < 2) {
-                    throw new IllegalStateException("Not enough states for transition");
-                }
-                // Get the next state
-                T nextState = states.get(1);
-                // Check if the transition is valid
-                if (!isValidTransition(currentState, nextState)) {
-                    isValidTransition(currentState, nextState);
-                }
-                // Add the current state to the history
                 stateHistory.add(currentState);
-                // Remove the current state
                 states.remove(0);
-                // If there are more states, enter the next one
-                if (!states.isEmpty()) {
-                    currentState = states.get(0);
-                    StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
-                    if (onEnterAction != null) {
-                        onEnterAction.onStateChange();
-                    }
+                if (states.isEmpty()) {
+                    isRunning = false;
+                    return false;
+                }
+                currentState = states.get(0);
+                StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
+                if (onEnterAction != null) {
+                    onEnterAction.onStateChange();
                 }
             } else {
-                // Add the current state to the history
                 stateHistory.add(currentState);
             }
         }
-        return true;
+        return isRunning;
     }
 
     public boolean isValidTransition(T fromState, T toState) {
