@@ -18,6 +18,7 @@ public class StateMachine<T extends Enum<T>> {
     private Map<T, Supplier<Boolean>> whileStateEscapeConditions;
     private Map<T, Double> transitionDelayTimes;
     private T currentState;
+    private int currentStateIndex;
     private List<T> stateHistory;
     private boolean isStarted = false;
     private boolean isRunning = true;
@@ -145,7 +146,11 @@ public class StateMachine<T extends Enum<T>> {
                 throw new IllegalArgumentException("Initial state must have a corresponding onEnter command");
             }
             if (this.stopRunningIncluded != 1) {
-                throw new IllegalArgumentException("Not enough or too many stopRunning commands");
+                if (this.stopRunningIncluded == 0) {
+                    throw new IllegalArgumentException("Missing stopRunning command");
+                } else {
+                    throw new IllegalArgumentException("Too many stopRunning commands");
+                }
             }
             this.machine = new StateMachine<>(this);
             return this.machine;
@@ -167,91 +172,114 @@ public class StateMachine<T extends Enum<T>> {
     }
 
     public void stop() {
-        if (!isRunning) {
-            throw new IllegalStateException("StateMachine is already stopped");
-        }
         isRunning = false;
-        //delete all actions
-        states.clear();
-        onEnterCommands.clear();
-        onExitCommands.clear();
-        transitions.clear();
-        whileStateCommands.clear();
-        whileStateEscapeConditions.clear();
-        transitionDelayTimes.clear();
+        stateHistory.clear();
+        currentState = null;
+        isStarted = false;
+        currentActionType = TYPES.IDLE;
+        currentStateIndex = 9999999;
     }
 
     private double startTime = 0;
+
+    enum TYPES {
+        IDLE,
+        ON_ENTER,
+        WHILE_STATE,
+        ON_EXIT,
+        TRANSITION,
+        STOP,
+    }
+
+    private TYPES lastActionType;
+    private TYPES currentActionType = TYPES.IDLE;
     public boolean update() {
-        if (!states.isEmpty()) {
-            currentState = states.get(0);
-            Supplier<Boolean> escapeCondition = whileStateEscapeConditions.get(currentState);
-            while (escapeCondition != null && !escapeCondition.get()) {
-                StateChangeCallback whileStateAction = whileStateCommands.get(currentState);
-                if (whileStateAction != null) {
-                    whileStateAction.onStateChange();
-                }
+        if (currentActionType == TYPES.IDLE && isStarted) {
+            currentActionType = TYPES.ON_ENTER;
+        }
+        if (currentState == null || !isRunning) {
+            return false;
+        }
+
+        // Get the actions and conditions for the current state
+        StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
+        StateChangeCallback whileStateAction = whileStateCommands.get(currentState);
+        Supplier<Boolean> escapeCondition = whileStateEscapeConditions.get(currentState);
+        StateChangeCallback onExitAction = onExitCommands.get(currentState);
+        Supplier<Boolean> transitionCondition = transitions.get(currentState);
+        Double delayTime = transitionDelayTimes.getOrDefault(currentState, 0.0);
+
+        // Handle STOP type
+        if (currentActionType == TYPES.STOP) {
+            stop();
+            return false;
+        }
+
+        // Execute onEnter if transitioning into the state
+        if (currentActionType == TYPES.ON_ENTER) {
+            if (onEnterAction != null) {
+                onEnterAction.onStateChange();
             }
-            Supplier<Boolean> transitionCondition = transitions.get(currentState);
-            if (transitionCondition != null && transitionCondition.get()) {
-                // Check if there are at least 2 states
-                if (states.size() < 2) {
-                    throw new IllegalStateException("Not enough states for transition");
-                }
-                // Get the next state
-                T nextState = states.get(1);
-                // Check if the transition is valid
-                if (!isValidTransition(currentState, nextState)) {
-                    isValidTransition(currentState, nextState);
-                }
-                StateChangeCallback onExitAction = onExitCommands.get(currentState);
-                if (onExitAction != null) {
-                    onExitAction.onStateChange();
-                }
-                // Delay the transition
-                double delayTime = transitionDelayTimes.get(currentState);
-                if (delayTime > 0) {
-                    if (startTime == 0) {
-                        startTime = System.currentTimeMillis();
-                    }
-                    double elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                    if (elapsedTime < delayTime) {
-                        return false;
-                    } else {
-                        // Add the current state to the history
-                        stateHistory.add(currentState);
-                        // Remove the current state
-                        states.remove(0);
-                        // If there are more states, enter the next one
-                        if (!states.isEmpty()) {
-                            currentState = states.get(0);
-                            StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
-                            if (onEnterAction != null) {
-                                onEnterAction.onStateChange();
-                            }
-                        }
-                    }
-                } else {
-                    // Add the current state to the history
-                    stateHistory.add(currentState);
-                    // Remove the current state
-                    states.remove(0);
-                    // If there are more states, enter the next one
-                    if (!states.isEmpty()) {
-                        currentState = states.get(0);
-                        StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
-                        if (onEnterAction != null) {
-                            onEnterAction.onStateChange();
-                        }
-                    }
-                }
+            currentActionType = (whileStateAction != null) ? TYPES.WHILE_STATE : TYPES.TRANSITION;
+            return true;
+        }
+
+        // Execute whileState if defined
+        if (currentActionType == TYPES.WHILE_STATE) {
+            if (whileStateAction != null) {
+                whileStateAction.onStateChange();
+            }
+            if (escapeCondition != null && escapeCondition.get()) {
+                currentActionType = TYPES.ON_EXIT;
             } else {
-                // Add the current state to the history
-                stateHistory.add(currentState);
+                return true;
             }
         }
-        return true;
+
+        // Execute onExit if transitioning out of the state
+        if (currentActionType == TYPES.ON_EXIT) {
+            if (onExitAction != null) {
+                onExitAction.onStateChange();
+            }
+            currentActionType = TYPES.TRANSITION;
+            return true;
+        }
+
+        // Handle transition logic
+        if (currentActionType == TYPES.TRANSITION) {
+            if (transitionCondition != null && transitionCondition.get()) {
+                int nextIndex = currentStateIndex + 1;
+                isValidTransition(currentState, states.get(nextIndex));
+                if (nextIndex < states.size()) {
+                    // Handle transition delay
+                    if (delayTime > 0) {
+                        double elapsedTime = (System.currentTimeMillis() - startTime) / 1000.0;
+                        if (startTime == 0 || elapsedTime < delayTime) {
+                            if (startTime == 0) {
+                                startTime = System.currentTimeMillis();
+                            }
+                            return true; // Wait until delay passes
+                        }
+                    }
+                    startTime = 0; // Reset delay timer
+
+                    // Transition to the next state
+                    stateHistory.add(currentState);
+                    currentState = states.get(nextIndex);
+                    currentStateIndex = nextIndex;
+                    currentActionType = TYPES.ON_ENTER;
+                    return true;
+                } else {
+                    currentActionType = TYPES.STOP; // Transition to STOP
+                    return false;
+                }
+            }
+        }
+
+        return false; // No actions performed
     }
+
+
 
     public boolean isValidTransition(T fromState, T toState) {
         if (fromState == toState) {
