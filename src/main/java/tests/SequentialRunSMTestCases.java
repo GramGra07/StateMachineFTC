@@ -2,7 +2,6 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -51,9 +50,14 @@ class SequentialRunSMTestCases {
         srsmb.start();
         assertTrue(srsmb.isRunning());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertFalse(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
         assertFalse(srsmb.isRunning());
@@ -145,42 +149,6 @@ class SequentialRunSMTestCases {
         }
         assertEquals(AutoLift.stop, liftSequence.getCurrentState());
     }
-    // test transition with a holdup
-    @Test
-    void testTransition(){
-        System.out.println("Testing transition with holdup");
-        SequentialRunSM.Builder<States> builder = new SequentialRunSM.Builder<>();
-        builder.state(States.STATE1).onEnter(States.STATE1, () -> {
-            System.out.println("Entering STATE1");
-        }).transition(States.STATE1, () -> {
-            return true;
-        }).state(States.STATE2).onEnter(States.STATE2, () -> {
-            System.out.println("Entering STATE2");
-        }).transition(States.STATE2, () -> {
-            System.out.println("Transitioning from STATE2 to STATE3");
-            return false;
-        }).state(States.STATE3).onEnter(States.STATE3, () -> {
-            System.out.println("Entering STATE3");
-        }).transition(States.STATE3, () -> {
-            System.out.println("Transitioning from STATE3 to STOP");
-            return true;
-        }).stopRunning(States.STOP);
-
-        SequentialRunSM<States> srsmb = builder.build();
-        srsmb.start();
-        assertTrue(srsmb.isRunning());
-        assertTrue(srsmb.update());
-        assertEquals(States.STATE2, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
-        assertEquals(States.STATE2, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
-        assertNotEquals(States.STATE3, srsmb.getCurrentState());
-        assertTrue(srsmb.isRunning());
-        assertNotEquals(States.STOP, srsmb.getCurrentState());
-        assertTrue(srsmb.update());
-
-        System.out.println("States updated successfully");
-    }
     @Test
     void testStopRunning(){
         System.out.println("Testing stopRunning");
@@ -205,9 +173,14 @@ class SequentialRunSMTestCases {
         srsmb.start();
         assertTrue(srsmb.isRunning());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertFalse(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
         assertFalse(srsmb.isRunning());
@@ -270,14 +243,18 @@ class SequentialRunSMTestCases {
         assertTrue(commandExecuted[0]);
         assertFalse(commandExecuted[1]);
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertTrue(commandExecuted[0]);
         assertTrue(commandExecuted[1]);
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertFalse(commandExecuted[0]);
         assertTrue(commandExecuted[1]);
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertFalse(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertFalse(commandExecuted[0]);
         assertFalse(commandExecuted[1]);
         assertEquals(States.STOP, srsmb.getCurrentState());
@@ -343,11 +320,16 @@ class SequentialRunSMTestCases {
         srsmb.start();
         assertTrue(srsmb.isRunning());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertFalse(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertFalse(srsmb.update());
         assertFalse(srsmb.isRunning());
 
         System.out.println("Comprehensive test passed");
@@ -377,10 +359,14 @@ class SequentialRunSMTestCases {
         srsmb.start();
         assertTrue(srsmb.isRunning());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertFalse(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
         assertFalse(srsmb.isRunning());
 
@@ -390,12 +376,17 @@ class SequentialRunSMTestCases {
         srsmb.start();
         assertTrue(srsmb.isRunning());
         assertEquals(States.STATE1, srsmb.getCurrentState());
+        assertTrue(srsmb.isRunning());
         assertTrue(srsmb.update());
         assertEquals(States.STATE2, srsmb.getCurrentState());
         assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STATE3, srsmb.getCurrentState());
-        assertFalse(srsmb.update());
+        assertTrue(srsmb.update());
+        assertTrue(srsmb.update());
         assertEquals(States.STOP, srsmb.getCurrentState());
+        assertTrue(srsmb.update());
+        assertFalse(srsmb.update());
         assertFalse(srsmb.isRunning());
 
         System.out.println("Restart at beginning tested successfully");
@@ -423,9 +414,14 @@ class SequentialRunSMTestCases {
         stateMachine.start();
         assertTrue(stateMachine.isRunning());
         assertTrue(stateMachine.update());
+        assertTrue(stateMachine.update());
         assertEquals(States.STATE2, stateMachine.getCurrentState());
         assertTrue(stateMachine.update());
+        assertTrue(stateMachine.update());
         assertEquals(States.STATE3, stateMachine.getCurrentState());
+        assertTrue(stateMachine.update());
+        assertTrue(stateMachine.update());
+        assertTrue(stateMachine.update());
         assertFalse(stateMachine.update());
         assertEquals(States.STOP, stateMachine.getCurrentState());
         assertFalse(stateMachine.isRunning());

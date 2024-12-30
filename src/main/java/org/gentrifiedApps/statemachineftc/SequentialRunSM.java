@@ -131,6 +131,7 @@ public class SequentialRunSM<T extends Enum<T>> {
         }
         isStarted = true;
         shouldRestart = true;
+        isRunning = true;
         if (!states.isEmpty()) {
             currentState = states.get(0);
             StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
@@ -154,36 +155,64 @@ public class SequentialRunSM<T extends Enum<T>> {
     public void restartAtBeginning() {
         if (shouldRestart) {
             stateHistory.clear();
-            isRunning = true;
+            isRunning = false;
             isStarted = false;
             states = sustainStates;
             transitions = sustainTransitions;
             onEnterCommands = sustainOnEnter;
+            currentStateIndex = 0;
             shouldRestart = false;
         }
     }
 
+    StateMachine.TYPES currentActionType = StateMachine.TYPES.IDLE;
+    int currentStateIndex = 0;
+
     public boolean update() {
-        if (!states.isEmpty()) {
-            currentState = states.get(0);
-            Supplier<Boolean> transitionCondition = transitions.get(currentState);
+        if (currentActionType == StateMachine.TYPES.IDLE && isStarted) {
+            currentActionType = StateMachine.TYPES.ON_ENTER;
+        }
+        if (currentState == null || !isRunning) {
+            return false;
+        }
+
+        StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
+
+        // Get the actions and conditions for the current state
+        Supplier<Boolean> transitionCondition = transitions.get(currentState);
+        if (currentActionType == StateMachine.TYPES.ON_ENTER) {
+            if (onEnterAction != null) {
+                onEnterAction.onStateChange();
+            }
+            currentActionType = StateMachine.TYPES.TRANSITION;
+            return true;
+        }
+        // Handle STOP type
+        if (currentActionType == StateMachine.TYPES.STOP) {
+            stop();
+            return false;
+        }
+        // Handle transition logic
+        if (currentActionType == StateMachine.TYPES.TRANSITION) {
             if (transitionCondition != null && transitionCondition.get()) {
+                int nextIndex = currentStateIndex + 1;
+                isValidTransition(currentState, states.get(nextIndex));
+                if (nextIndex < states.size()) {
+
+                    // Transition to the next state
                 stateHistory.add(currentState);
-                states.remove(0);
-                if (states.isEmpty()) {
-                    isRunning = false;
+                    currentState = states.get(nextIndex);
+                    currentStateIndex = nextIndex;
+                    currentActionType = StateMachine.TYPES.ON_ENTER;
+                    return true;
+                } else {
+                    currentActionType = StateMachine.TYPES.STOP; // Transition to STOP
                     return false;
-                }
-                currentState = states.get(0);
-                StateChangeCallback onEnterAction = onEnterCommands.get(currentState);
-                if (onEnterAction != null) {
-                    onEnterAction.onStateChange();
-                }
-            } else {
-                stateHistory.add(currentState);
             }
         }
-        return isRunning;
+        }
+
+        return false; // No actions performed
     }
 
     public boolean isValidTransition(T fromState, T toState) {
